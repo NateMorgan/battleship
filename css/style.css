@@ -21,9 +21,10 @@ button{
   grid-template-rows: repeat(5, 10vmin);
   grid-template-columns: repeat(5, 10vmin);
   grid-gap: 0vmin;
+  border: 1px solid white;
   
 }
 
 .grid-square{
-  border: 2px solid white;
+  border: 1px solid white;
 }

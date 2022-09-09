@@ -1,5 +1,5 @@
 // ---------------- Constants ----------------------------//
-
+const gridSize = 25
 
 
 //----------------- Variables (State) --------------------//
@@ -35,7 +35,7 @@ function render(){
     btnNext.hidden = true
     btnRestart.hidden = false
     message.textContent = `Player ${game.player} place your ships`
-    createBoard(5,5)
+    createBoard(gridSize,gridSize)
   }
 }
 
@@ -52,6 +52,9 @@ function nextPhase(){
 }
 
 function createBoard(rows,cols){
+  gridContainer.style.gridTemplateRows = `repeat(${rows}, ${50/rows}vh)`
+  gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${50/cols}vh)`
+
   for (let row = 0; row < rows; row++){
     for (let col = 0; col < cols; col++){
       let newGridSquare = document.createElement('div')

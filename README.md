@@ -2,6 +2,9 @@
 
 Welcome Aboard Captain!  Your naval armada is primed for battle.  Are you ready to lead us to victory?
 
+## About the Game
+This is a two player game wehre players place 5 battleships on their 10 x 10 grids and then take turns guessing where the other player has placed their ships, one square at a time.  Once you find where your opponent placed their ships, you win!
+
 ## How to Play
 ### Step 1: Grab a Friend!
 Click this link to play: [Insert Link Here]
@@ -10,14 +13,14 @@ Take turns placing all of your ships onto your board.
 ### Step 3: Battle Phase
 Take turns selecting a target square in enemy territory to fire upon.  If you fire upon one of their ships, you will be alerted via a bright red indicator.  If you miss, the square will be neutral.
 ### Step 4: Endgame
-Repeat step 3 until all of a players ships are sunk.  The last player with ships remaining win!    
+Repeat step 3 until all of a player's ships are sunk.  The last player with ships remaining wins!    
 
 ## Technologies Used
 Javascript, HTML, and CSS
 
 ## How It's Made
 ![wireframe of the Battleship play screen](./assets/wire-frame.png)
-### Psuedo-code
+### Pseudo-code
 1. Create a start screen with the title of game and a button to start a new game
 2. Setup Phase
    1. Display Title of the Game
@@ -58,4 +61,4 @@ Javascript, HTML, and CSS
 - Add torpedo sounds
 - Add voice over sounds
 - Sound effects
-- Quick code to prevent players from 
+- Quick lock code to prevent players from playing for the other player 

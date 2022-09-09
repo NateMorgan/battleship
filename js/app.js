@@ -16,6 +16,7 @@ let game = {
 const btnNext = document.querySelector('#btn-next')
 const btnRestart = document.querySelector(`#btn-restart`)
 const message = document.querySelector('#message')
+const gridContainer = document.querySelector('#grid-container')
 
 // --------------- Event Listeners -----------------------//
 btnNext.addEventListener('click', nextPhase)
@@ -34,6 +35,7 @@ function render(){
     btnNext.hidden = true
     btnRestart.hidden = false
     message.textContent = `Player ${game.player} place your ships`
+    createBoard(5,5)
   }
 }
 
@@ -46,6 +48,17 @@ function init(){
 function nextPhase(){
   game.phase += 1
   render()
+}
+
+function createBoard(rows,cols){
+  for (let row = 0; row < rows; row++){
+    for (let col = 0; col < cols; col++){
+      let newGridSquare = document.createElement('div')
+      newGridSquare.setAttribute("class","grid-square")
+      newGridSquare.setAttribute("id",`${row}-${col}`)
+      gridContainer.appendChild(newGridSquare)
+    }
+  }
 }
 
 

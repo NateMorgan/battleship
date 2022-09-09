@@ -4,5 +4,14 @@
   color: white;
 }
 
-body{
+
+#grid-container {
+  display: grid;
+  grid-template-rows: repeat(5, 10vmin);
+  grid-template-columns: repeat(5, 10vmin);
+  grid-gap: 0vmin;
+}
+
+.grid-square{
+  border: 2px solid white;
 }

@@ -1,6 +1,23 @@
 // ---------------- Constants ----------------------------//
-const gridSize = 25
+const gridSize = 2
+const boardSize = 50
+class Coordinates {
+  constructor(row,col){
+    this.pos = [row,col]
+    this.playerOneShip = false
+    this.playerOneTargeted = false
+    this.playerTwoShip = false
+    this.playerTwoTargeted = false
+  }
 
+  fire(){
+    player > 0 ? playerOneTargeted = true : playerTwoTargeted = true
+  }
+
+  placeShip(){
+    player > 0 ? playerOneShip = true : playerTwoShip = true
+  }
+}
 
 //----------------- Variables (State) --------------------//
 // Phases: 0-Start Screen  1-Setup  2-Battle  3-End of Game
@@ -8,6 +25,9 @@ const gridSize = 25
 let game = {
   phase:0,
   player:1,
+  // I might really regret this but I'm using one board to rule them all 
+  board: [],
+
 }
 
 
@@ -23,6 +43,7 @@ btnNext.addEventListener('click', nextPhase)
 btnRestart.addEventListener('click', init)
 
 
+
 //---------------- Functions -----------------------------//
 init()
 
@@ -30,6 +51,7 @@ function render(){
   if (game.phase === 0){
     btnNext.hidden = false
     btnRestart.hidden = true
+    gridContainer.style.display = "none"
     message.textContent = "Start a two player game"
   } else if (game.phase === 1){
     btnNext.hidden = true
@@ -52,17 +74,21 @@ function nextPhase(){
 }
 
 function createBoard(rows,cols){
-  gridContainer.style.gridTemplateRows = `repeat(${rows}, ${50/rows}vh)`
-  gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${50/cols}vh)`
+  gridContainer.style.display = "grid"
+  gridContainer.style.gridTemplateRows = `repeat(${rows}, ${boardSize/rows}vh)`
+  gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${boardSize/cols}vh)`
 
   for (let row = 0; row < rows; row++){
+    game.board.push([])
     for (let col = 0; col < cols; col++){
+      game.board[row].push(new Coordinates(row,col))
       let newGridSquare = document.createElement('div')
       newGridSquare.setAttribute("class","grid-square")
       newGridSquare.setAttribute("id",`${row}-${col}`)
       gridContainer.appendChild(newGridSquare)
     }
   }
+  console.log(game)
 }
 
 

@@ -1,5 +1,5 @@
 // ---------------- Constants ----------------------------//
-const gridSize = 2
+const gridSize = 10
 const boardSize = 50
 class Coordinates {
   constructor(row,col){
@@ -41,6 +41,9 @@ const gridContainer = document.querySelector('#grid-container')
 // --------------- Event Listeners -----------------------//
 btnNext.addEventListener('click', nextPhase)
 btnRestart.addEventListener('click', init)
+gridContainer.addEventListener('mouseover',highlightSquare)
+gridContainer.addEventListener('mouseout',highlightSquare)
+gridContainer.addEventListener('click',squareSelect)
 
 
 
@@ -88,8 +91,32 @@ function createBoard(rows,cols){
       gridContainer.appendChild(newGridSquare)
     }
   }
-  console.log(game)
+  
 }
+
+function squareSelect(evt){
+  if (evt.target.className === "grid-square"){
+    if (game.phase === 1){ 
+      evt.target.style.backgroundColor = "grey"
+      let row = evt.target.id[0]
+      let col = evt.target.id.at(-1)
+      game.board[row][col].playerOneShip = true
+      // console.log(game.board[row][col])
+    }
+  }
+}
+
+function highlightSquare(evt){
+  if (evt.target.className === "grid-square"){
+    if (evt.type === 'mouseover'){
+      evt.target.style.border = "10px solid red"
+  
+    } else {
+      evt.target.style.border = "1px solid white"
+    }
+  }
+}
+
 
 
 

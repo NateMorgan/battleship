@@ -42,6 +42,7 @@ function render(){
 function init(){
   game.phase = 0
   game.player = 1
+  gridContainer.innerHTML = ''
   render()
 }
 

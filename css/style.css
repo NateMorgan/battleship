@@ -2,14 +2,26 @@
   background-color: blue;
   text-align: center;
   color: white;
+  margin: 0;
 }
 
+body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button{
+  margin: 20px;
+}
 
 #grid-container {
   display: grid;
   grid-template-rows: repeat(5, 10vmin);
   grid-template-columns: repeat(5, 10vmin);
   grid-gap: 0vmin;
+  
 }
 
 .grid-square{

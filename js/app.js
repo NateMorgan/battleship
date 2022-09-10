@@ -130,6 +130,8 @@ function renderBoard(rows,cols){
       } else if (game.phase === 2){
         if (game.board[row][col].targeted){
           newGridSquare.setAttribute("class","target-here")
+          btnNext.textContent = "Fire"
+          btnNext.hidden = false
         }
       }
       gridContainer.appendChild(newGridSquare)
@@ -195,6 +197,11 @@ function targetSquareLogic(evt){
   } else {
     let r = evt.target.id[0]
     let c = parseInt(evt.target.id[2])
+    for (row of game.board){
+      for (el of row){
+        el.targeted = false
+      }
+    }
     game.board[r][c].targeted = true
     render()
   }

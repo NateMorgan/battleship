@@ -3,13 +3,14 @@ class Coordinates {
   constructor(row,col){
     this.pos = [row,col]
     this.playerOneShip = ``
-    this.playerOneTargeted = false
+    this.playerOneFired = false
     this.playerTwoShip = ``
-    this.playerTwoTargeted = false
+    this.playerTwoFired = false
+    this.targeted = false
   }
 
   fire(){
-      game.turn > 0 ? this.playerOneTargeted = true : this.playerTwoTargeted = true
+      game.turn > 0 ? this.playerOneFired = true : this.playerTwoFired = true
   }
     
   placeShip(i){
@@ -126,6 +127,10 @@ function renderBoard(rows,cols){
         if ((game.turn > 0 && game.board[row][col].playerOneShip) ||(game.turn < 0 && game.board[row][col].playerTwoShip)){
           newGridSquare.setAttribute("class","ship-here")
         }
+      } else if (game.phase === 2){
+        if (game.board[row][col].targeted){
+          newGridSquare.setAttribute("class","target-here")
+        }
       }
       gridContainer.appendChild(newGridSquare)
     }
@@ -187,5 +192,10 @@ function targetSquareLogic(evt){
   if (evt.type !== 'click') {
     let newOutline = (evt.type === 'mouseover') ? `${boardSize/gridSize/2}vh solid red` : "1px solid white"
     evt.target.style.border = newOutline
+  } else {
+    let r = evt.target.id[0]
+    let c = parseInt(evt.target.id[2])
+    game.board[r][c].targeted = true
+    render()
   }
 }

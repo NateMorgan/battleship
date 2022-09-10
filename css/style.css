@@ -21,6 +21,10 @@ img{
   height: 15px;
 }
 
+#message{
+  margin: 20px 0px;
+}
+
 #grid-container {
   display: grid;
   grid-template-rows: repeat(5, 10vmin);
@@ -39,5 +43,10 @@ img{
 }
 
 .grid-square{
+  border: 1px solid white;
+}
+
+.ship-here{
+  background-color: grey;
   border: 1px solid white;
 }

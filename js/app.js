@@ -2,26 +2,18 @@
 class Coordinates {
   constructor(row,col){
     this.pos = [row,col]
-    this.playerOneShip = false
+    this.playerOneShip = ``
     this.playerOneTargeted = false
-    this.playerTwoShip = false
+    this.playerTwoShip = ``
     this.playerTwoTargeted = false
   }
 
   fire(){
-      player > 0 ? playerOneTargeted = true : playerTwoTargeted = true
+      game.turn > 0 ? this.playerOneTargeted = true : this.playerTwoTargeted = true
   }
     
-  placeShip(){
-    player > 0 ? playerOneShip = true : playerTwoShip = true
-  }
-}
-
-class Ship {
-  constructor(name, length, place){
-    this.name = name
-    this.len = length
-    this.place = place
+  placeShip(i){
+    game.turn > 0 ? this.playerOneShip = `${lastShip[0]+i}` : this.playerTwoShip = `${lastShip[0]+i}`
   }
 }
 
@@ -29,7 +21,7 @@ class Ship {
 // ---------------- Constants ----------------------------//
 const gridSize = 10
 const boardSize = 30
-const shipArr1 = [new Ship(`Carrier`, 5, []),new Ship(`Battleship`, 4, []) , new Ship(`Cruiser`, 3, []), new Ship(`Submarine`, 3, []), new Ship(`Destroyer`, 2, [])]
+const shipInfo = [[`Carrier`, 5],[`Battleship`, 4],[`Cruiser`, 3],[`Submarine`, 3],[`Destroyer`,2]]
 
 
 //----------------- Variables (State) --------------------//
@@ -37,12 +29,12 @@ const shipArr1 = [new Ship(`Carrier`, 5, []),new Ship(`Battleship`, 4, []) , new
 // Phases: 0-Start Screen  1-Setup  2-Battle  3-End of Game
 let game = {
   phase: 0,
-  player: 1,
+  turn: 1,
   // I might really regret this but I'm using one board to rule them all 
   board: [],
-  ships: []
 }
-let lastShip = 5
+
+let lastShip = shipInfo[0]
 
 
 // ---------------- Cached Element References ------------//
@@ -74,18 +66,23 @@ function render(){
   } else if (game.phase === 1){
     btnNext.hidden = true
     btnRestart.hidden = false
-    message.textContent = `Player ${game.player} place your ships`
-    createBoard(gridSize,gridSize)
+    message.textContent = `Player ${game.turn} place your ${lastShip[0]}`
+    renderBoard(gridSize,gridSize)
   }
 }
 
 function init(){
   game.phase = 0
-  game.player = 1
+  game.turn = 1
   game.board = []
-  game.ships = []
-  lastShip = 5
+  lastShip = shipInfo[0]
   gridContainer.innerHTML = ''
+  for (let row = 0; row < gridSize; row++){
+    game.board.push([])
+    for (let col = 0; col < gridSize; col++){
+      game.board[row].push(new Coordinates(row,col))
+    }
+  }
   render()
 }
 
@@ -94,23 +91,24 @@ function nextPhase(){
   render()
 }
 
-function createBoard(rows,cols){
+function renderBoard(rows,cols){
+  gridContainer.innerHTML = ''
   shipContainer.style.display = "flex"
   gridContainer.style.display = "grid"
   gridContainer.style.gridTemplateRows = `repeat(${rows}, ${boardSize/rows}vh)`
   gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${boardSize/cols}vh)`
 
   for (let row = 0; row < rows; row++){
-    game.board.push([])
     for (let col = 0; col < cols; col++){
-      game.board[row].push(new Coordinates(row,col))
       let newGridSquare = document.createElement('div')
       newGridSquare.setAttribute("class","grid-square")
       newGridSquare.setAttribute("id",`${row}-${col}`)
+      if ((game.turn > 0 && game.board[row][col].playerOneShip) ||(game.turn < 0 && game.board[row][col].playerTwoShip)){
+        newGridSquare.setAttribute("class","ship-here")
+      }
       gridContainer.appendChild(newGridSquare)
     }
   }
-  
 }
 
 function boardClick(evt){
@@ -123,26 +121,27 @@ function boardClick(evt){
 
 function changeShip(evt){
   if (evt.target.tagName === 'IMG'){
-    lastShip = parseInt(evt.target.id.at(-1))
+    lastShip = shipInfo[parseInt(evt.target.id.at(-1))]
+    render()
   }
 }
 
 function placeShipLogic(start, action) {
-  for (let i = 0; i < lastShip; i++){
+  for (let i = 0; i < lastShip[1]; i++){
     let r = start[0]
     let c = parseInt(start[2])
-    if (c + lastShip >= gridSize){
-      c = gridSize - lastShip
+    if (c + lastShip[1] >= gridSize){
+      c = gridSize - lastShip[1]
     }
     c += i
     if (action === 'click'){
-      document.getElementById(`${r}-${c}`).style.backgroundColor = "grey"
-      game.board[r][c].playerOneShip = true
+      // document.getElementById(`${r}-${c}`).style.backgroundColor = "grey"
+      game.board[r][c].placeShip(i)
+      render()
     } else {
       let newOutline = (action === 'mouseover') ? `${boardSize/gridSize/2}vh solid orange` : "1px solid white"
       document.getElementById(`${r}-${c}`).style.border = newOutline
     }
   }
+  console.log(game.board)
 }
-
-

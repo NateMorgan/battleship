@@ -1,7 +1,4 @@
-// ---------------- Constants ----------------------------//
-const gridSize = 10
-const boardSize = 30
-
+// ---------- Classes --------//
 class Coordinates {
   constructor(row,col){
     this.pos = [row,col]
@@ -12,9 +9,9 @@ class Coordinates {
   }
 
   fire(){
-    player > 0 ? playerOneTargeted = true : playerTwoTargeted = true
+      player > 0 ? playerOneTargeted = true : playerTwoTargeted = true
   }
-
+    
   placeShip(){
     player > 0 ? playerOneShip = true : playerTwoShip = true
   }
@@ -29,18 +26,21 @@ class Ship {
 }
 
 
+// ---------------- Constants ----------------------------//
+const gridSize = 10
+const boardSize = 30
+const shipArr1 = [new Ship(`Carrier`, 5, []),new Ship(`Battleship`, 4, []) , new Ship(`Cruiser`, 3, []), new Ship(`Submarine`, 3, []), new Ship(`Destroyer`, 2, [])]
+
 
 //----------------- Variables (State) --------------------//
-// Phases: 0-Start Screen  1-Setup  2-Battle  3-End of Game
 
+// Phases: 0-Start Screen  1-Setup  2-Battle  3-End of Game
 let game = {
   phase: 0,
   player: 1,
   // I might really regret this but I'm using one board to rule them all 
   board: [],
   ships: []
-
-
 }
 let lastShip = 5
 
@@ -128,23 +128,18 @@ function changeShip(evt){
 }
 
 function placeShipLogic(start, action) {
-  
-  
   for (let i = 0; i < lastShip; i++){
     let r = start[0]
     let c = parseInt(start[2])
-    console.log(c, lastShip, gridSize)
     if (c + lastShip >= gridSize){
       c = gridSize - lastShip
     }
     c += i
-    
     if (action === 'click'){
       document.getElementById(`${r}-${c}`).style.backgroundColor = "grey"
       game.board[r][c].playerOneShip = true
-      
     } else {
-      let newOutline = (action === 'mouseover') ? `${boardSize/gridSize/2}vh solid red` : "1px solid white"
+      let newOutline = (action === 'mouseover') ? `${boardSize/gridSize/2}vh solid orange` : "1px solid white"
       document.getElementById(`${r}-${c}`).style.border = newOutline
     }
   }

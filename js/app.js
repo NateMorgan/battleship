@@ -1,5 +1,5 @@
 // ---------------- Constants ----------------------------//
-const gridSize = 5
+const gridSize = 10
 const boardSize = 30
 
 class Coordinates {
@@ -42,7 +42,7 @@ let game = {
 
 
 }
-
+let lastShip = 5
 
 
 // ---------------- Cached Element References ------------//
@@ -84,6 +84,7 @@ function init(){
   game.player = 1
   game.board = []
   game.ships = []
+  lastShip = 5
   gridContainer.innerHTML = ''
   render()
 }
@@ -125,19 +126,24 @@ function squareSelect(evt){
 }
 
 function highlightSquare(evt){
-  if (evt.target.className === "grid-square"){
-    if (evt.type === 'mouseover'){
-      evt.target.style.border = "10px solid red"
-  
-    } else {
-      evt.target.style.border = "1px solid white"
+  if (game.phase === 1){
+    if (evt.target.className === "grid-square"){
+      hoverStart = evt.target.id
+      let newOutline = (evt.type === 'mouseover') ? `${boardSize/gridSize/2}vh solid red` : "1px solid white"
+      for (let i = 0; i < lastShip; i++){
+        let r = hoverStart[0]
+        let c = parseInt(hoverStart[2])+i
+        if (c < gridSize){
+          document.getElementById(`${r}-${c}`).style.border = newOutline
+        }
+      }
     }
   }
 }
 
 function changeShip(evt){
-  if (evt.target.type = 'img'){
-    // console.log(evt.target.id)
+  if (evt.target.tagName === 'IMG'){
+    lastShip = evt.target.id.at(-1)
   }
 }
 

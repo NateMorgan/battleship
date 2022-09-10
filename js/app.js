@@ -21,7 +21,7 @@ class Coordinates {
 // ---------------- Constants ----------------------------//
 const gridSize = 10
 const boardSize = 30
-const shipInfo = [[`Carrier`, 5, 1],[`Battleship`, 4, 2],[`Cruiser`, 3, 3],[`Submarine`, 3, 4],[`Destroyer`,2, 0]]
+const shipInfo = [[`Carrier`, 5, 1],[`Battleship`, 4, 2],[`Cruiser`, 3, 3],[`Submarine`, 3, 4],[`Destroyer`,2, 5],["Confirm Placement",0,0]]
 
 
 //----------------- Variables (State) --------------------//
@@ -66,7 +66,16 @@ function render(){
   } else if (game.phase === 1){
     btnNext.hidden = true
     btnRestart.hidden = false
-    message.textContent = `Player ${game.turn} place your ${lastShip[0]}`
+    message.textContent = `Player ${game.turn >0 ? 1 : 2} place your ${lastShip[0]}`
+    if (lastShip[2] === 0){
+      message.textContent= lastShip[0]
+      btnNext.textContent = 'Submit boat placement'
+      btnNext.hidden = false
+    }
+    renderBoard(gridSize,gridSize)
+  } else if (game.phase === 2){
+    message.textContent = `Player ${game.turn >0 ? 1 : 2} pick a square to fire upon`
+    btnNext.hidden = true
     renderBoard(gridSize,gridSize)
   }
 }
@@ -87,7 +96,17 @@ function init(){
 }
 
 function nextPhase(){
-  game.phase += 1
+  if (game.phase === 0 ){
+    game.phase += 1
+  } else if (game.phase === 1){
+    if (game.turn === -1){
+      game.phase += 1
+      lastShip = shipInfo[0]
+    }
+    game.turn *= -1
+  }
+  console.log(`Turn: ${game.turn}`)
+  console.log(`Phase: ${game.phase}`)
   render()
 }
 
@@ -103,8 +122,10 @@ function renderBoard(rows,cols){
       let newGridSquare = document.createElement('div')
       newGridSquare.setAttribute("class","grid-square")
       newGridSquare.setAttribute("id",`${row}-${col}`)
-      if ((game.turn > 0 && game.board[row][col].playerOneShip) ||(game.turn < 0 && game.board[row][col].playerTwoShip)){
-        newGridSquare.setAttribute("class","ship-here")
+      if (game.phase === 1){
+        if ((game.turn > 0 && game.board[row][col].playerOneShip) ||(game.turn < 0 && game.board[row][col].playerTwoShip)){
+          newGridSquare.setAttribute("class","ship-here")
+        }
       }
       gridContainer.appendChild(newGridSquare)
     }
@@ -115,24 +136,32 @@ function boardClick(evt){
   if (evt.target.className === "grid-square"){
     if (game.phase === 1){
       placeShipLogic(evt.target.id,evt.type)
+    } else if (game.phase == 2){
+      targetSquareLogic(evt)
     }
   }
 }
 
 function changeShip(evt){
-  if (evt.target.tagName === 'IMG'){
+  if (evt === undefined) {
+    lastShip = shipInfo[lastShip[2]]
+    if (lastShip === "Restart Placement?"){
+      return
+    }
+  } else if (evt.target.tagName === 'IMG'){
     lastShip = shipInfo[parseInt(evt.target.id.at(-1))]
-    for (row of game.board){
-      for (coor of row){
-        if (coor.playerOneShip.slice(0,-1) === lastShip[0]){
-          coor.playerOneShip = ''
-        }
+  }
+
+  for (row of game.board){
+    for (coor of row){
+      if (coor.playerOneShip.slice(0,-1) === lastShip[0]){
+        coor.playerOneShip = ''
       }
     }
-    render()
   }
+  render()
 }
-
+  
 function placeShipLogic(start, action) {
   for (let i = 0; i < lastShip[1]; i++){
     let r = start[0]
@@ -149,7 +178,14 @@ function placeShipLogic(start, action) {
     }
   }
   if (action === 'click'){
-    lastShip = shipInfo[lastShip[2]]
+    changeShip()
     render()
+  }
+}
+
+function targetSquareLogic(evt){
+  if (evt.type !== 'click') {
+    let newOutline = (evt.type === 'mouseover') ? `${boardSize/gridSize/2}vh solid red` : "1px solid white"
+    evt.target.style.border = newOutline
   }
 }

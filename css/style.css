@@ -16,6 +16,11 @@ button{
   margin: 20px;
 }
 
+img{
+  margin: 10px;
+  height: 15px;
+}
+
 #grid-container {
   display: grid;
   grid-template-rows: repeat(5, 10vmin);
@@ -23,6 +28,14 @@ button{
   grid-gap: 0vmin;
   border: 1px solid white;
   
+}
+
+#ship-container{
+  display: flex;
+  margin: 15;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .grid-square{

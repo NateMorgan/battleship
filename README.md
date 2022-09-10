@@ -62,3 +62,7 @@ Javascript, HTML, and CSS
 - Add voice over sounds
 - Sound effects
 - Quick lock code to prevent players from playing for the other player 
+- Radar option
+- Bombs for fake hits
+- airstrikes
+- Big bombs

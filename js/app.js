@@ -21,7 +21,7 @@ class Coordinates {
 // ---------------- Constants ----------------------------//
 const gridSize = 10
 const boardSize = 30
-const shipInfo = [[`Carrier`, 5],[`Battleship`, 4],[`Cruiser`, 3],[`Submarine`, 3],[`Destroyer`,2]]
+const shipInfo = [[`Carrier`, 5, 1],[`Battleship`, 4, 2],[`Cruiser`, 3, 3],[`Submarine`, 3, 4],[`Destroyer`,2, 0]]
 
 
 //----------------- Variables (State) --------------------//
@@ -122,6 +122,13 @@ function boardClick(evt){
 function changeShip(evt){
   if (evt.target.tagName === 'IMG'){
     lastShip = shipInfo[parseInt(evt.target.id.at(-1))]
+    for (row of game.board){
+      for (coor of row){
+        if (coor.playerOneShip.slice(0,-1) === lastShip[0]){
+          coor.playerOneShip = ''
+        }
+      }
+    }
     render()
   }
 }
@@ -135,13 +142,14 @@ function placeShipLogic(start, action) {
     }
     c += i
     if (action === 'click'){
-      // document.getElementById(`${r}-${c}`).style.backgroundColor = "grey"
       game.board[r][c].placeShip(i)
-      render()
     } else {
       let newOutline = (action === 'mouseover') ? `${boardSize/gridSize/2}vh solid orange` : "1px solid white"
       document.getElementById(`${r}-${c}`).style.border = newOutline
     }
   }
-  console.log(game.board)
+  if (action === 'click'){
+    lastShip = shipInfo[lastShip[2]]
+    render()
+  }
 }

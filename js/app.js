@@ -55,9 +55,9 @@ const shipContainer = document.querySelector('#ship-container')
 // --------------- Event Listeners -----------------------//
 btnNext.addEventListener('click', nextPhase)
 btnRestart.addEventListener('click', init)
-gridContainer.addEventListener('mouseover',highlightSquare)
-gridContainer.addEventListener('mouseout',highlightSquare)
-gridContainer.addEventListener('click',squareSelect)
+gridContainer.addEventListener('mouseover',boardClick)
+gridContainer.addEventListener('mouseout',boardClick)
+gridContainer.addEventListener('click',boardClick)
 shipContainer.addEventListener('click', changeShip)
 
 
@@ -113,39 +113,41 @@ function createBoard(rows,cols){
   
 }
 
-function squareSelect(evt){
+function boardClick(evt){
   if (evt.target.className === "grid-square"){
-    if (game.phase === 1){ 
-      evt.target.style.backgroundColor = "grey"
-      let row = evt.target.id[0]
-      let col = evt.target.id.at(-1)
-      game.board[row][col].playerOneShip = true
-      // console.log(game.board[row][col])
-    }
-  }
-}
-
-function highlightSquare(evt){
-  if (game.phase === 1){
-    if (evt.target.className === "grid-square"){
-      hoverStart = evt.target.id
-      let newOutline = (evt.type === 'mouseover') ? `${boardSize/gridSize/2}vh solid red` : "1px solid white"
-      for (let i = 0; i < lastShip; i++){
-        let r = hoverStart[0]
-        let c = parseInt(hoverStart[2])+i
-        if (c < gridSize){
-          document.getElementById(`${r}-${c}`).style.border = newOutline
-        }
-      }
+    if (game.phase === 1){
+      placeShipLogic(evt.target.id,evt.type)
     }
   }
 }
 
 function changeShip(evt){
   if (evt.target.tagName === 'IMG'){
-    lastShip = evt.target.id.at(-1)
+    lastShip = parseInt(evt.target.id.at(-1))
   }
 }
 
+function placeShipLogic(start, action) {
+  
+  
+  for (let i = 0; i < lastShip; i++){
+    let r = start[0]
+    let c = parseInt(start[2])
+    console.log(c, lastShip, gridSize)
+    if (c + lastShip >= gridSize){
+      c = gridSize - lastShip
+    }
+    c += i
+    
+    if (action === 'click'){
+      document.getElementById(`${r}-${c}`).style.backgroundColor = "grey"
+      game.board[r][c].playerOneShip = true
+      
+    } else {
+      let newOutline = (action === 'mouseover') ? `${boardSize/gridSize/2}vh solid red` : "1px solid white"
+      document.getElementById(`${r}-${c}`).style.border = newOutline
+    }
+  }
+}
 
 

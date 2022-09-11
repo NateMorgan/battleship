@@ -79,6 +79,11 @@ function render(){
     message.textContent = `Player ${game.turn >0 ? 1 : 2} pick a square to fire upon`
     btnNext.hidden = true
     renderBoard(gridSize,gridSize)
+  } else if (game.phase === 3){
+    message.textContent = `Congrats Player ${game.winner >0 ? 1 : 2} won!`
+    btnNext.hidden = true
+    gridContainer.style.display = "none"
+    shipContainer.style.display = "none"
   }
 }
 
@@ -87,6 +92,7 @@ function init(){
   game.turn = 1
   game.board = []
   game.winner = false
+  btnNext.textContent = "Start Game"
   lastShip = shipInfo[0]
   gridContainer.innerHTML = ''
   for (let row = 0; row < gridSize; row++){
@@ -114,8 +120,6 @@ function nextPhase(){
     }
     game.turn *= -1
   }
-  console.log(`Turn: ${game.turn}`)
-  console.log(`Phase: ${game.phase}`)
   render()
 }
 

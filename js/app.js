@@ -8,10 +8,6 @@ class Coordinates {
     this.playerTwoFired = false
     this.targeted = false
   }
-
-  fire(){
-      game.turn > 0 ? this.playerOneFired = true : this.playerTwoFired = true
-  }
     
   placeShip(i){
     game.turn > 0 ? this.playerOneShip = `${lastShip[0]+i}` : this.playerTwoShip = `${lastShip[0]+i}`
@@ -79,11 +75,11 @@ function render(){
     message.textContent = `Player ${game.turn >0 ? 1 : 2} pick a square to fire upon`
     btnNext.hidden = true
     renderBoard(gridSize,gridSize)
+    shipContainer.style.display = "none"
   } else if (game.phase === 3){
     message.textContent = `Congrats Player ${game.winner >0 ? 1 : 2} won!`
     btnNext.hidden = true
     gridContainer.style.display = "none"
-    shipContainer.style.display = "none"
   }
 }
 
@@ -144,6 +140,7 @@ function renderBoard(rows,cols){
           newGridSquare.setAttribute("class","target-here")
           btnNext.textContent = "Fire"
           btnNext.hidden = false
+          shipContainer.style.display = "none"
         }
         hitOrMiss(newGridSquare,row,col)
       }
@@ -155,7 +152,9 @@ function renderBoard(rows,cols){
 function boardClick(evt){
   if (evt.target.className === "grid-square"){
     if (game.phase === 1){
-      placeShipLogic(evt.target.id,evt.type)
+      if (!checkIfOccupied(evt.target.id)){
+        placeShipLogic(evt.target.id,evt.type)
+      }
     } else if (game.phase == 2){
       targetSquareLogic(evt)
     }
@@ -276,4 +275,21 @@ function fireOnTarget(){
   }
 }
 
+function checkIfOccupied(start){
+  output = false
+  for (let i = 0; i < lastShip[1]; i++){
+    let r = start[0]
+    let c = parseInt(start[2])
+    if (c + lastShip[1] >= gridSize){
+      c = gridSize - lastShip[1]
+    }
+    c += i
+    if (game.board[r][c].playerOneShip !== '' && game.turn > 0){
+      output = true
+    } else if (game.board[r][c].playerTwoShip !== '' && game.turn < 0){
+      output = true 
+    }
+  }
+  return output
+}
 

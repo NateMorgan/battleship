@@ -243,16 +243,28 @@ function hitOrMiss(grid,row,col){
 
 function checkWin(){
   console.log("check win")
-  return false
+  for (row of game.board){
+    for (el of row){
+      if (game.turn > 0){
+        if (el.playerTwoShip && !el.playerOneFired){
+          return false
+        }
+      } else {
+        if (el.playerOneShip && !el.playerTwoFired){
+          return false
+        }
+      }
+    }
+  }
+  game.winner = game.turn
+  return true
 }
 
 function fireOnTarget(){
   for (row of game.board){
     for (el of row){
       if (el.targeted){
-        console.log("i'm here")
         game.turn > 0 ? el.playerOneFired = true : el.playerTwoFired = true
-        console.log(el)
         el.targeted = false
         return
       }

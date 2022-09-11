@@ -54,3 +54,11 @@ img{
 .target-here{
   background-color: purple;
 }
+
+.hit{
+  background-color: darkred;
+}
+
+.miss{
+  background-color: lightblue;
+}

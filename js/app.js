@@ -33,6 +33,7 @@ let game = {
   turn: 1,
   // I might really regret this but I'm using one board to rule them all 
   board: [],
+  winner: null
 }
 
 let lastShip = shipInfo[0]
@@ -85,6 +86,7 @@ function init(){
   game.phase = 0
   game.turn = 1
   game.board = []
+  game.winner = false
   lastShip = shipInfo[0]
   gridContainer.innerHTML = ''
   for (let row = 0; row < gridSize; row++){
@@ -102,7 +104,13 @@ function nextPhase(){
   } else if (game.phase === 1){
     if (game.turn === -1){
       game.phase += 1
-      lastShip = shipInfo[0]
+    }
+    game.turn *= -1
+    lastShip = shipInfo[0]
+  } else if (game.phase === 2){
+    fireOnTarget()
+    if (checkWin()){
+      game.phase += 1
     }
     game.turn *= -1
   }
@@ -133,6 +141,7 @@ function renderBoard(rows,cols){
           btnNext.textContent = "Fire"
           btnNext.hidden = false
         }
+        hitOrMiss(newGridSquare,row,col)
       }
       gridContainer.appendChild(newGridSquare)
     }
@@ -197,12 +206,58 @@ function targetSquareLogic(evt){
   } else {
     let r = evt.target.id[0]
     let c = parseInt(evt.target.id[2])
-    for (row of game.board){
-      for (el of row){
-        el.targeted = false
-      }
-    }
+    clearTargeted()
     game.board[r][c].targeted = true
     render()
   }
 }
+
+function clearTargeted(){
+  for (row of game.board){
+    for (el of row){
+      el.targeted = false
+    }
+  }
+}
+
+function hitOrMiss(grid,row,col){
+  coor = game.board[row][col]
+  if (game.turn > 0){
+    if (coor.playerOneFired){
+      if (coor.playerTwoShip){
+        grid.setAttribute("class","hit")
+      } else {
+        grid.setAttribute("class", "miss")
+      }
+    }
+  } else {
+    if (coor.playerTwoFired){
+      if (coor.playerOneShip){
+        grid.setAttribute("class","hit")
+      } else {
+        grid.setAttribute("class", "miss")
+      }
+    }
+  }
+}
+
+function checkWin(){
+  console.log("check win")
+  return false
+}
+
+function fireOnTarget(){
+  for (row of game.board){
+    for (el of row){
+      if (el.targeted){
+        console.log("i'm here")
+        game.turn > 0 ? el.playerOneFired = true : el.playerTwoFired = true
+        console.log(el)
+        el.targeted = false
+        return
+      }
+    }
+  }
+}
+
+

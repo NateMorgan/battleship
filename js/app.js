@@ -23,7 +23,8 @@ class Coordinates {
 const gridSize = 10
 const boardSize = 30
 const shipInfo = [[`Carrier`, 5, 1],[`Battleship`, 4, 2],[`Cruiser`, 3, 3],[`Submarine`, 3, 4],[`Destroyer`,2, 5],["Confirm Placement",0,0]]
-
+const outlineColor = `#A4E3AE`
+const hoverColor = `#7BB886`
 
 //----------------- Variables (State) --------------------//
 
@@ -130,8 +131,9 @@ function nextPhase(){
 }
 
 function renderBoard(rows,cols){
-  gridContainer.innerHTML = ''
   shipContainer.style.display = "flex"
+  gridContainer.innerHTML = ''
+  gridContainer.hidden = false
   gridContainer.style.display = "grid"
   gridContainer.style.gridTemplateRows = `repeat(${rows}, ${boardSize/rows}vh)`
   gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${boardSize/cols}vh)`
@@ -146,11 +148,11 @@ function renderBoard(rows,cols){
           newGridSquare.setAttribute("class","ship-here")
         }
       } else if (game.phase === 2){
+        shipContainer.style.display = "none"
         if (game.board[row][col].targeted){
           newGridSquare.setAttribute("class","target-here")
           btnNext.textContent = "Fire"
           btnNext.hidden = false
-          shipContainer.style.display = "none"
         }
         hitOrMiss(newGridSquare,row,col)
       }
@@ -204,7 +206,7 @@ function placeShipLogic(start, action) {
     if (action === 'click'){
       game.board[r][c].placeShip(i)
     } else {
-      let newOutline = (action === 'mouseover') ? `${boardSize/gridSize/2}vh solid #a3b18a` : "1px solid white"
+      let newOutline = (action === 'mouseover') ? `${boardSize/gridSize/2}vh solid ${hoverColor}` : `1px solid ${outlineColor}`
       document.getElementById(`${r}-${c}`).style.border = newOutline
     }
   }
@@ -216,7 +218,7 @@ function placeShipLogic(start, action) {
 
 function targetSquareLogic(evt){
   if (evt.type !== 'click') {
-    let newOutline = (evt.type === 'mouseover') ? `${boardSize/gridSize/2}vh solid #a3b18a` : "1px solid white"
+    let newOutline = (evt.type === 'mouseover') ? `${boardSize/gridSize/2}vh solid ${hoverColor}` : `1px solid ${outlineColor}`
     evt.target.style.border = newOutline
   } else {
     let r = parseInt(evt.target.id[0])

@@ -1,7 +1,7 @@
 *{
-  background-color: #344e41;
+  background-color: #00441B;
   text-align: center;
-  color: white;
+  color: #A4E3AE;
   margin: 0;
 }
 
@@ -11,6 +11,10 @@ body{
   justify-content: center;
   align-items: center;
   margin: 15px;
+  background-color: #00441B;
+  text-align: center;
+  color: #A4E3AE;
+  margin: 0;
 }
 
 button{
@@ -31,11 +35,8 @@ img{
 }
 
 #grid-container {
-  display: grid;
-  grid-template-rows: repeat(5, 10vmin);
-  grid-template-columns: repeat(5, 10vmin);
   grid-gap: 0vmin;
-  border: 1px solid white;
+  border: 1px solid #A4E3AE;
   
 }
 
@@ -49,24 +50,24 @@ img{
 }
 
 .grid-square{
-  border: 1px solid white;
+  border: 1px solid #A4E3AE;
 }
 
 .ship-here{
-  background-color: grey;
-  border: 1px solid white;
+  background-color: #549060;
+  border: 1px solid #A4E3AE;
 }
 
 .target-here{
-  background-color: #344e41;
+  background-color: #549060;
 }
 
 .hit{
-  background-color: darkred;
+  background-color: red;
 }
 
 .miss{
-  background-color: #dad7cd;
+  background-color: #A4E3AE;
 }
 
 .rotate90 {

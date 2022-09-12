@@ -12,7 +12,7 @@ class Coordinates {
   fire(){
     game.turn > 0 ? el.playerOneFired = true : el.playerTwoFired = true
     this.targeted = false
-    game.lastFire = this.pos
+    game.fireArray.push(this.pos) 
   }
 
   placeShip(i){
@@ -37,7 +37,7 @@ let game = {
   // I might really regret this but I'm using one board to rule them all 
   board: [],
   winner: null,
-  lastFire: null
+  fireArray: []
 }
 
 let lastShip = shipInfo[0]
@@ -55,7 +55,7 @@ const modalTitle = document.querySelector('.modal-title')
 const modalText = document.querySelector('#modal-text')
 const modalBtn = document.querySelector('#modal-btn')
 const modalHeader = document.querySelector('.modal-header')
-const shipView = document.querySelector('#ship-view')
+const btnViewShips = document.querySelector('#ship-view')
 
 // --------------- Event Listeners -----------------------//
 btnNext.addEventListener('click', nextPhase)
@@ -65,7 +65,7 @@ gridContainer.addEventListener('mouseout',boardClick)
 gridContainer.addEventListener('click',boardClick)
 shipContainer.addEventListener('click', changeShip)
 rotateBtn.addEventListener('click',rotateShips)
-shipView.addEventListener('click',displayShips)
+btnViewShips.addEventListener('click',displayShips)
 
 //---------------- Functions -----------------------------//
 init()
@@ -73,8 +73,9 @@ init()
 function render(){
   if (game.phase === 0){
     btnNext.hidden = false
-    rotateBtn.style.display = "none"
     btnRestart.hidden = true
+    rotateBtn.style.display = "none"
+    btnViewShips.style.display = "none"
     gridContainer.style.display = "none"
     shipContainer.style.display = "none"
     message.textContent = "Start a two player game"
@@ -90,6 +91,7 @@ function render(){
     }
     renderBoard(gridSize,gridSize)
   } else if (game.phase === 2){
+    btnViewShips.style.display = "block"
     btnNext.hidden = true
     rotateBtn.style.display = "none"
     shipContainer.style.display = "none"
@@ -107,7 +109,7 @@ function init(){
   game.turn = 1
   game.board = []
   game.winner = false
-  game.lastFire = null
+  game.fireArray = []
   rotate = false
   btnNext.textContent = "Start Game"
 
@@ -273,7 +275,6 @@ function hitOrMiss(grid,row,col){
 }
 
 function checkWin(){
-  console.log("check win")
   for (row of game.board){
     for (el of row){
       if (game.turn > 0){
@@ -292,7 +293,6 @@ function checkWin(){
 }
 
 function fireOnTarget(){
-  console.log("I am firing on target")
   for (row of game.board){
     for (el of row){
       if (el.targeted){
@@ -308,7 +308,6 @@ function checkIfOccupied(start){
   for (let i = 0; i < lastShip[1]; i++){
     let r = parseInt(start[0])
     let c = parseInt(start[2])
-    // console.log(r,c)
     if (c + lastShip[1] >= gridSize && !rotate){
       c = gridSize - lastShip[1]
     } else if (r + lastShip[1] >= gridSize && rotate){
@@ -370,14 +369,21 @@ function displayShips(){
 function renderModal(){
   let player = game.turn > 0 ? 1 : 2
   modalHeader.style.display = "none"
-  if (game.lastFire !== null){
+  if (game.fireArray.length !== 0){
     modalHeader.style.display = "flex"
-    modalHeader.firstElementChild.textContent = 
-    modalHeader.lastElementChild.textContent = ""
+    let row = game.fireArray.at(-1)[0]
+    let col = game.fireArray.at(-1)[1]
+    let shipHit = game.turn < 0 ? game.board[row][col].playerTwoShip : game.board[row][col].playerOneShip
+    if (shipHit !== ''){
+      modalHeader.firstElementChild.textContent = "HIT!"
+      modalHeader.lastElementChild.textContent = `You hit my ${shipHit.slice(0,shipHit.length-1)}`
+    } else {
+      modalHeader.firstElementChild.textContent = "MISS"
+      modalHeader.lastElementChild.textContent = `Better Luck Next Time`
+    }
   }
   modalTitle.textContent = `Switch Players`
   modalText.textContent = `Confirm you are Player ${player} below:`
   modalBtn.textContent = `I am Player ${player}`
   fullscreenModal.show()
-
 }

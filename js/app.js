@@ -48,6 +48,10 @@ const gridContainer = document.querySelector('#grid-container')
 const shipContainer = document.querySelector('#ship-container')
 const rotateBtn = document.querySelector('#rotate-btn')
 const fullscreenModal = new bootstrap.Modal(document.querySelector('.modal'))
+const modalTitle = document.querySelector('.modal-title')
+const modalText = document.querySelector('#modal-text')
+const modalBtn = document.querySelector('#modal-btn')
+
 // --------------- Event Listeners -----------------------//
 btnNext.addEventListener('click', nextPhase)
 btnRestart.addEventListener('click', init)
@@ -112,7 +116,6 @@ function init(){
 }
 
 function nextPhase(){
-  fullscreenModal.show()
   if (game.phase === 0 ){
     game.phase += 1
   } else if (game.phase === 1){
@@ -129,6 +132,7 @@ function nextPhase(){
     game.turn *= -1
   }
   render()
+  renderModal()
 }
 
 function renderBoard(rows,cols){
@@ -313,7 +317,6 @@ function checkIfOccupied(start){
 }
 
 function rotateShips(evt){
-
   rotate === false ? rotate = true : rotate = false 
   let imgs = document.querySelectorAll("img")
   for (img of imgs){
@@ -325,4 +328,12 @@ function rotateShips(evt){
       shipContainer.style.flexDirection = "row"
     }
   }
+}
+
+function renderModal(){
+  let player = game.turn > 0 ? 1 : 2
+  modalTitle.textContent = `It is now Player ${player}'s turn`
+  modalText.textContent = `Confirm you are Player ${player} below:`
+  modalBtn.textContent = `I am Player ${player}`
+  fullscreenModal.show()
 }

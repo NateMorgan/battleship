@@ -29,13 +29,18 @@
   </svg>
   
   <button id="btn-next" class="btn btn-dark"> Start Game</button>
+  <button id="ship-view" class="btn btn-dark"> Show Your Ships</button>
   <button id="btn-restart" class="btn btn-dark" hidden> Restart Game</button>
   <!-- Full screen modal -->
   <div id="exampleModal" class="modal" tabindex="-1">
     <div class="modal-dialog modal-fullscreen">
+      <div class="modal-header">
+        <h1> HIT! </h1>
+        <h2> You sunk Player Two's Battleship </h2>
+      </div>
       <div class="modal-content">
         <div class="modal-body">
-          <h3 class="modal-title">It is now Player 1's turn</h5>
+          <h2 class="modal-title">Switch Players</h2>
           <p id="modal-text">Confirm you are Player 1 below:</p>
           <button id="modal-btn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">I am Player 1</button>
         </div>

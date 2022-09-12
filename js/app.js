@@ -11,6 +11,8 @@ class Coordinates {
     
   fire(){
     game.turn > 0 ? el.playerOneFired = true : el.playerTwoFired = true
+    this.targeted = false
+    game.lastFire = this.pos
   }
 
   placeShip(i){
@@ -34,7 +36,8 @@ let game = {
   turn: 1,
   // I might really regret this but I'm using one board to rule them all 
   board: [],
-  winner: null
+  winner: null,
+  lastFire: null
 }
 
 let lastShip = shipInfo[0]
@@ -51,6 +54,8 @@ const fullscreenModal = new bootstrap.Modal(document.querySelector('.modal'))
 const modalTitle = document.querySelector('.modal-title')
 const modalText = document.querySelector('#modal-text')
 const modalBtn = document.querySelector('#modal-btn')
+const modalHeader = document.querySelector('.modal-header')
+const shipView = document.querySelector('#ship-view')
 
 // --------------- Event Listeners -----------------------//
 btnNext.addEventListener('click', nextPhase)
@@ -60,6 +65,7 @@ gridContainer.addEventListener('mouseout',boardClick)
 gridContainer.addEventListener('click',boardClick)
 shipContainer.addEventListener('click', changeShip)
 rotateBtn.addEventListener('click',rotateShips)
+shipView.addEventListener('click',displayShips)
 
 //---------------- Functions -----------------------------//
 init()
@@ -101,6 +107,7 @@ function init(){
   game.turn = 1
   game.board = []
   game.winner = false
+  game.lastFire = null
   rotate = false
   btnNext.textContent = "Start Game"
 
@@ -190,8 +197,10 @@ function changeShip(evt){
 
   for (row of game.board){
     for (coor of row){
-      if (coor.playerOneShip.slice(0,-1) === lastShip[0]){
+      if (game.turn > 0 && coor.playerOneShip.slice(0,-1) === lastShip[0]){
         coor.playerOneShip = ''
+      } else if (game.turn < 0 && coor.playerTwoShip.slice(0,-1) === lastShip[0]){
+        coor.playerTwoShip = ''
       }
     }
   }
@@ -283,11 +292,11 @@ function checkWin(){
 }
 
 function fireOnTarget(){
+  console.log("I am firing on target")
   for (row of game.board){
     for (el of row){
       if (el.targeted){
         el.fire()
-        el.targeted = false
         return
       }
     }
@@ -330,10 +339,45 @@ function rotateShips(evt){
   }
 }
 
+function displayShips(){
+  let rows = gridSize
+  let cols = gridSize
+  gridContainer.innerHTML = ''
+  gridContainer.hidden = false
+  gridContainer.style.display = "grid"
+  gridContainer.style.gridTemplateRows = `repeat(${rows}, ${boardSize/rows}vh)`
+  gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${boardSize/cols}vh)`
+
+  for (let row = 0; row < rows; row++){
+    for (let col = 0; col < cols; col++){
+      let newGridSquare = document.createElement('div')
+      newGridSquare.setAttribute("class","grid-square")
+      newGridSquare.setAttribute("id",`${row}-${col}`)
+      if (game.phase === 2){
+        shipContainer.style.display = "none"
+        if (game.board[row][col].playerOneShip !== '' && game.turn > 0){
+          newGridSquare.setAttribute("class","ship-here")
+        } else if (game.board[row][col].playerTwoShip !== '' && game.turn < 0){
+          newGridSquare.setAttribute("class","ship-here")
+        }
+      }
+      gridContainer.appendChild(newGridSquare)
+    }
+  }
+}
+
+
 function renderModal(){
   let player = game.turn > 0 ? 1 : 2
-  modalTitle.textContent = `It is now Player ${player}'s turn`
+  modalHeader.style.display = "none"
+  if (game.lastFire !== null){
+    modalHeader.style.display = "flex"
+    modalHeader.firstElementChild.textContent = 
+    modalHeader.lastElementChild.textContent = ""
+  }
+  modalTitle.textContent = `Switch Players`
   modalText.textContent = `Confirm you are Player ${player} below:`
   modalBtn.textContent = `I am Player ${player}`
   fullscreenModal.show()
+
 }

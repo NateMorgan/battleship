@@ -19,7 +19,7 @@ Repeat step 3 until all of a player's ships are sunk.  The last player with ship
 Javascript, HTML, CSS, and Bootstrap
 
 ## How It's Made
-![wireframe of the Battleship play screen](./assets/wire-frame.png)
+![wireframe of the Battleship play screen](./assets/img/wire-frame.png)
 ### Pseudo-code
 1. Create a start screen with the title of game and a button to start a new game
 2. Setup Phase

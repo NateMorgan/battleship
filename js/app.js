@@ -42,6 +42,7 @@ let game = {
 
 let lastShip = shipInfo[0]
 let rotate = false
+let shipViewToggle = false
 
 // ---------------- Cached Element References ------------//
 const btnNext = document.querySelector('#btn-next')
@@ -339,30 +340,39 @@ function rotateShips(evt){
 }
 
 function displayShips(){
-  let rows = gridSize
-  let cols = gridSize
-  gridContainer.innerHTML = ''
-  gridContainer.hidden = false
-  gridContainer.style.display = "grid"
-  gridContainer.style.gridTemplateRows = `repeat(${rows}, ${boardSize/rows}vh)`
-  gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${boardSize/cols}vh)`
-
-  for (let row = 0; row < rows; row++){
-    for (let col = 0; col < cols; col++){
-      let newGridSquare = document.createElement('div')
-      newGridSquare.setAttribute("class","grid-square")
-      newGridSquare.setAttribute("id",`${row}-${col}`)
-      if (game.phase === 2){
-        shipContainer.style.display = "none"
-        if (game.board[row][col].playerOneShip !== '' && game.turn > 0){
-          newGridSquare.setAttribute("class","ship-here")
-        } else if (game.board[row][col].playerTwoShip !== '' && game.turn < 0){
-          newGridSquare.setAttribute("class","ship-here")
+  if (shipViewToggle){
+    shipViewToggle = false
+    btnViewShips.textContent = "Show Your Ships"
+    render()
+  } else {
+    shipViewToggle = true
+    btnViewShips.textContent = "Show Target Board"
+    let rows = gridSize
+    let cols = gridSize
+    gridContainer.innerHTML = ''
+    gridContainer.hidden = false
+    gridContainer.style.display = "grid"
+    gridContainer.style.gridTemplateRows = `repeat(${rows}, ${boardSize/rows}vh)`
+    gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${boardSize/cols}vh)`
+  
+    for (let row = 0; row < rows; row++){
+      for (let col = 0; col < cols; col++){
+        let newGridSquare = document.createElement('div')
+        newGridSquare.setAttribute("class","grid-square")
+        newGridSquare.setAttribute("id",`${row}-${col}`)
+        if (game.phase === 2){
+          shipContainer.style.display = "none"
+          if (game.board[row][col].playerOneShip !== '' && game.turn > 0){
+            newGridSquare.setAttribute("class","ship-here")
+          } else if (game.board[row][col].playerTwoShip !== '' && game.turn < 0){
+            newGridSquare.setAttribute("class","ship-here")
+          }
         }
+        gridContainer.appendChild(newGridSquare)
       }
-      gridContainer.appendChild(newGridSquare)
     }
   }
+  
 }
 
 

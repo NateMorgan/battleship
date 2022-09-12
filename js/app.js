@@ -47,8 +47,7 @@ const message = document.querySelector('#message')
 const gridContainer = document.querySelector('#grid-container')
 const shipContainer = document.querySelector('#ship-container')
 const rotateBtn = document.querySelector('#rotate-btn')
-
-
+const fullscreenModal = new bootstrap.Modal(document.querySelector('.modal'))
 // --------------- Event Listeners -----------------------//
 btnNext.addEventListener('click', nextPhase)
 btnRestart.addEventListener('click', init)
@@ -100,6 +99,7 @@ function init(){
   game.winner = false
   rotate = false
   btnNext.textContent = "Start Game"
+
   lastShip = shipInfo[0]
   gridContainer.innerHTML = ''
   for (let row = 0; row < gridSize; row++){
@@ -112,6 +112,7 @@ function init(){
 }
 
 function nextPhase(){
+  fullscreenModal.show()
   if (game.phase === 0 ){
     game.phase += 1
   } else if (game.phase === 1){

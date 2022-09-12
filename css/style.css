@@ -35,8 +35,8 @@ img{
 }
 
 #grid-container {
-  grid-gap: 0vmin;
-  border: 1px solid #A4E3AE;
+  grid-gap: 1vmin;
+  /* border: 1px solid #A4E3AE; */
   
 }
 
@@ -51,6 +51,7 @@ img{
 
 .grid-square{
   border: 1px solid #A4E3AE;
+  border-radius: 5px;
 }
 
 .ship-here{

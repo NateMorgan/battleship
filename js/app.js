@@ -94,6 +94,8 @@ function render(){
   } else if (game.phase === 2){
     btnViewShips.style.display = "block"
     btnNext.hidden = true
+    shipViewToggle = false
+    btnViewShips.textContent = "Show Your Ships"
     rotateBtn.style.display = "none"
     shipContainer.style.display = "none"
     message.textContent = `Player ${game.turn >0 ? 1 : 2} pick a square to fire upon`
@@ -134,7 +136,10 @@ function nextPhase(){
     if (game.turn === -1){
       game.phase += 1
     }
-    game.turn *= -1
+    if (rotate){
+      rotateShips()
+    }
+      game.turn *= -1
     lastShip = shipInfo[0]
   } else if (game.phase === 2){
     fireOnTarget()
@@ -343,8 +348,6 @@ function rotateShips(evt){
 
 function displayShips(){
   if (shipViewToggle){
-    shipViewToggle = false
-    btnViewShips.textContent = "Show Your Ships"
     render()
   } else {
     shipViewToggle = true
@@ -376,7 +379,6 @@ function displayShips(){
   }
   
 }
-
 
 function renderModal(){
   let player = game.turn > 0 ? 1 : 2

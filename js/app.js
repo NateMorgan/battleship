@@ -387,7 +387,13 @@ function renderModal(){
     shipHit = shipHit.slice(0,shipHit.length-1)
     if (shipHit !== ''){
       modalHeader.firstElementChild.textContent = "HIT!"
-      modalHeader.lastElementChild.textContent = `You ${ checkIfSunk(shipHit) ? `sunk`:`hit`} my ${shipHit}`
+      if (checkIfSunk(shipHit)){
+        modalHeader.lastElementChild.innerHTML = `You <span id="sunk-text">SUNK</span> my ${shipHit}`
+      } else {
+        modalHeader.lastElementChild.innerHTML = `You hit my ${shipHit}`
+      }
+      
+
     } else {
       modalHeader.firstElementChild.textContent = "MISS"
       modalHeader.lastElementChild.textContent = `Better Luck Next Time`

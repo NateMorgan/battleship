@@ -374,9 +374,10 @@ function renderModal(){
     let row = game.fireArray.at(-1)[0]
     let col = game.fireArray.at(-1)[1]
     let shipHit = game.turn < 0 ? game.board[row][col].playerTwoShip : game.board[row][col].playerOneShip
+    shipHit = shipHit.slice(0,shipHit.length-1)
     if (shipHit !== ''){
       modalHeader.firstElementChild.textContent = "HIT!"
-      modalHeader.lastElementChild.textContent = `You hit my ${shipHit.slice(0,shipHit.length-1)}`
+      modalHeader.lastElementChild.textContent = `You ${ checkIfSunk(shipHit) ? `sunk`:`hit`} my ${shipHit}`
     } else {
       modalHeader.firstElementChild.textContent = "MISS"
       modalHeader.lastElementChild.textContent = `Better Luck Next Time`
@@ -386,4 +387,18 @@ function renderModal(){
   modalText.textContent = `Confirm you are Player ${player} below:`
   modalBtn.textContent = `I am Player ${player}`
   fullscreenModal.show()
+}
+
+function checkIfSunk(shipName){
+  for (let row of game.board){
+    for (let el of row){
+      shipCheck = game.turn > 0 ? el.playerOneShip: el.playerTwoShip
+      shipFiredCheck = game.turn > 0 ? el.playerTwoFired: el.playerOneFired
+      shipCheck = shipCheck.slice(0,shipCheck.length-1)
+      if (shipCheck === shipName && !shipFiredCheck){
+        return false
+      }
+    }
+  }
+  return true
 }

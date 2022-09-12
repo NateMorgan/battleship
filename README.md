@@ -16,7 +16,7 @@ Take turns selecting a target square in enemy territory to fire upon.  If you fi
 Repeat step 3 until all of a player's ships are sunk.  The last player with ships remaining wins!    
 
 ## Technologies Used
-Javascript, HTML, and CSS
+Javascript, HTML, CSS, and Bootstrap
 
 ## How It's Made
 ![wireframe of the Battleship play screen](./assets/wire-frame.png)

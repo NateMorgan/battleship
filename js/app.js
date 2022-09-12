@@ -9,6 +9,10 @@ class Coordinates {
     this.targeted = false
   }
     
+  fire(){
+    game.turn > 0 ? el.playerOneFired = true : el.playerTwoFired = true
+  }
+
   placeShip(i){
     game.turn > 0 ? this.playerOneShip = `${lastShip[0]+i}` : this.playerTwoShip = `${lastShip[0]+i}`
   }
@@ -33,7 +37,7 @@ let game = {
 }
 
 let lastShip = shipInfo[0]
-
+let rotate = false
 
 // ---------------- Cached Element References ------------//
 const btnNext = document.querySelector('#btn-next')
@@ -41,6 +45,8 @@ const btnRestart = document.querySelector(`#btn-restart`)
 const message = document.querySelector('#message')
 const gridContainer = document.querySelector('#grid-container')
 const shipContainer = document.querySelector('#ship-container')
+const rotateBtn = document.querySelector('#rotate-btn')
+
 
 // --------------- Event Listeners -----------------------//
 btnNext.addEventListener('click', nextPhase)
@@ -49,7 +55,7 @@ gridContainer.addEventListener('mouseover',boardClick)
 gridContainer.addEventListener('mouseout',boardClick)
 gridContainer.addEventListener('click',boardClick)
 shipContainer.addEventListener('click', changeShip)
-
+rotateBtn.addEventListener('click',rotateShips)
 
 //---------------- Functions -----------------------------//
 init()
@@ -57,6 +63,7 @@ init()
 function render(){
   if (game.phase === 0){
     btnNext.hidden = false
+    rotateBtn.style.display = "none"
     btnRestart.hidden = true
     gridContainer.style.display = "none"
     shipContainer.style.display = "none"
@@ -64,6 +71,7 @@ function render(){
   } else if (game.phase === 1){
     btnNext.hidden = true
     btnRestart.hidden = false
+    rotateBtn.style.display = "block"
     message.textContent = `Player ${game.turn >0 ? 1 : 2} place your ${lastShip[0]}`
     if (lastShip[2] === 0){
       message.textContent= lastShip[0]
@@ -72,14 +80,15 @@ function render(){
     }
     renderBoard(gridSize,gridSize)
   } else if (game.phase === 2){
-    message.textContent = `Player ${game.turn >0 ? 1 : 2} pick a square to fire upon`
     btnNext.hidden = true
-    renderBoard(gridSize,gridSize)
+    rotateBtn.style.display = "none"
     shipContainer.style.display = "none"
+    message.textContent = `Player ${game.turn >0 ? 1 : 2} pick a square to fire upon`
+    renderBoard(gridSize,gridSize)
   } else if (game.phase === 3){
-    message.textContent = `Congrats Player ${game.winner >0 ? 1 : 2} won!`
     btnNext.hidden = true
     gridContainer.style.display = "none"
+    message.textContent = `Congrats Player ${game.winner >0 ? 1 : 2} won!`
   }
 }
 
@@ -88,6 +97,7 @@ function init(){
   game.turn = 1
   game.board = []
   game.winner = false
+  rotate = false
   btnNext.textContent = "Start Game"
   lastShip = shipInfo[0]
   gridContainer.innerHTML = ''
@@ -183,16 +193,18 @@ function changeShip(evt){
   
 function placeShipLogic(start, action) {
   for (let i = 0; i < lastShip[1]; i++){
-    let r = start[0]
+    let r = parseInt(start[0])
     let c = parseInt(start[2])
-    if (c + lastShip[1] >= gridSize){
+    if (c + lastShip[1] >= gridSize && !rotate){
       c = gridSize - lastShip[1]
+    } else if (r + lastShip[1] >= gridSize && rotate){
+      r = gridSize - lastShip[1]
     }
-    c += i
+    rotate ? r += i : c += i
     if (action === 'click'){
       game.board[r][c].placeShip(i)
     } else {
-      let newOutline = (action === 'mouseover') ? `${boardSize/gridSize/2}vh solid orange` : "1px solid white"
+      let newOutline = (action === 'mouseover') ? `${boardSize/gridSize/2}vh solid #a3b18a` : "1px solid white"
       document.getElementById(`${r}-${c}`).style.border = newOutline
     }
   }
@@ -204,10 +216,10 @@ function placeShipLogic(start, action) {
 
 function targetSquareLogic(evt){
   if (evt.type !== 'click') {
-    let newOutline = (evt.type === 'mouseover') ? `${boardSize/gridSize/2}vh solid red` : "1px solid white"
+    let newOutline = (evt.type === 'mouseover') ? `${boardSize/gridSize/2}vh solid #a3b18a` : "1px solid white"
     evt.target.style.border = newOutline
   } else {
-    let r = evt.target.id[0]
+    let r = parseInt(evt.target.id[0])
     let c = parseInt(evt.target.id[2])
     clearTargeted()
     game.board[r][c].targeted = true
@@ -267,7 +279,7 @@ function fireOnTarget(){
   for (row of game.board){
     for (el of row){
       if (el.targeted){
-        game.turn > 0 ? el.playerOneFired = true : el.playerTwoFired = true
+        el.fire()
         el.targeted = false
         return
       }
@@ -278,12 +290,16 @@ function fireOnTarget(){
 function checkIfOccupied(start){
   output = false
   for (let i = 0; i < lastShip[1]; i++){
-    let r = start[0]
+    let r = parseInt(start[0])
     let c = parseInt(start[2])
-    if (c + lastShip[1] >= gridSize){
+    // console.log(r,c)
+    if (c + lastShip[1] >= gridSize && !rotate){
       c = gridSize - lastShip[1]
+    } else if (r + lastShip[1] >= gridSize && rotate){
+      r = gridSize - lastShip[1]
     }
-    c += i
+    
+    rotate ? r += i : c += i
     if (game.board[r][c].playerOneShip !== '' && game.turn > 0){
       output = true
     } else if (game.board[r][c].playerTwoShip !== '' && game.turn < 0){
@@ -293,3 +309,17 @@ function checkIfOccupied(start){
   return output
 }
 
+function rotateShips(evt){
+
+  rotate === false ? rotate = true : rotate = false 
+  let imgs = document.querySelectorAll("img")
+  for (img of imgs){
+    if (img.className === "rotate90"){
+      img.setAttribute("class","")
+      shipContainer.style.flexDirection = "column"
+    } else {
+      img.setAttribute("class","rotate90")
+      shipContainer.style.flexDirection = "row"
+    }
+  }
+}

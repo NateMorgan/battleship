@@ -1,5 +1,5 @@
 *{
-  background-color: blue;
+  background-color: #344e41;
   text-align: center;
   color: white;
   margin: 0;
@@ -22,6 +22,10 @@ img{
   height: 15px;
 }
 
+#rotate-btn{
+  display: none;
+}
+
 #message{
   margin: 20px 0px;
 }
@@ -41,6 +45,7 @@ img{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 175px;
 }
 
 .grid-square{
@@ -53,7 +58,7 @@ img{
 }
 
 .target-here{
-  background-color: purple;
+  background-color: #344e41;
 }
 
 .hit{
@@ -61,5 +66,9 @@ img{
 }
 
 .miss{
-  background-color: lightblue;
+  background-color: #dad7cd;
+}
+
+.rotate90 {
+  transform: rotate(90deg);
 }

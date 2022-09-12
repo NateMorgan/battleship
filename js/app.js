@@ -100,8 +100,10 @@ function render(){
     renderBoard(gridSize,gridSize)
   } else if (game.phase === 3){
     btnNext.hidden = true
+    btnViewShips.style.display = "none"
     gridContainer.style.display = "none"
-    message.textContent = `Congrats Player ${game.winner >0 ? 1 : 2} won!`
+    message.innerHTML = `Congrats Player ${game.winner >0 ? 1 : 2} on wining the game! <br> Play Again?`
+    btnRestart.textContent = `New Game`
   }
 }
 
@@ -399,9 +401,15 @@ function renderModal(){
       modalHeader.lastElementChild.textContent = `Better Luck Next Time`
     }
   }
-  modalTitle.textContent = `Switch Players`
-  modalText.textContent = `Confirm you are Player ${player} below:`
-  modalBtn.textContent = `I am Player ${player}`
+  if (game.phase === 3){
+    modalTitle.textContent = `Game Over`
+    modalText.textContent = `With that hit you won the game!`
+    modalBtn.textContent = `Close`
+  }else{
+    modalTitle.textContent = `Switch Players`
+    modalText.textContent = `Confirm you are Player ${player} below:`
+    modalBtn.textContent = `I am Player ${player}`
+  }
   fullscreenModal.show()
 }
 

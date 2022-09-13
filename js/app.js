@@ -126,7 +126,6 @@ function render(){
     renderBoard(gridSize,gridSize)
   } else if (game.phase === 2){
     btnNext.style.height = "auto"
-    // btnNext.style.width = "auto"
     btnViewShips.style.display = "block"
     btnUndo.style.display = "none"
     btnClearShips.style.display = "none"
@@ -215,13 +214,11 @@ function boardClick(evt){
 }
 
 function changeShip(){
-  // console.log(lastShip[2])
   if (lastShip[2] === 0){
     clearShips()
     lastShip = shipInfo[5]
     shipContainer.style.display = "flex"
   }
-  console.log(lastShip)
   lastShip = shipInfo[lastShip[2]]
   if (lastShip[1] > 0){
     shipImg.setAttribute("src", `./assets/img/${lastShip[0].toLowerCase()}.png`)
@@ -380,18 +377,29 @@ function displayShips(){
         newGridSquare.setAttribute("class","grid-square")
         newGridSquare.setAttribute("id",`${row}-${col}`)
         if (game.phase === 2){
-          shipContainer.style.display = "none"
+          // shipContainer.style.display = "none"
           if (game.board[row][col].playerOneShip !== '' && game.turn > 0){
-            newGridSquare.setAttribute("class","ship-here")
+            if (game.board[row][col].playerTwoFired){
+              newGridSquare.setAttribute("class","hit-on-ship")
+            } else {
+              newGridSquare.setAttribute("class","ship-here")
+            }
           } else if (game.board[row][col].playerTwoShip !== '' && game.turn < 0){
-            newGridSquare.setAttribute("class","ship-here")
+            if (game.board[row][col].playerOneFired){
+              newGridSquare.setAttribute("class","hit-on-ship")
+            } else {
+              newGridSquare.setAttribute("class","ship-here")
+            }
+          } else if (game.board[row][col].playerTwoFired && game.turn > 0){
+            newGridSquare.setAttribute("class","miss-on-board")
+          } else if (game.board[row][col].playerOneFired && game.turn < 0){
+            newGridSquare.setAttribute("class","miss-on-board")
           }
         }
         gridContainer.appendChild(newGridSquare)
       }
     }
   }
-  
 }
 
 function renderModal(){

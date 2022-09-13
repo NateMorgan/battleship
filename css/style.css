@@ -56,6 +56,18 @@ img{
   transform: rotate(90deg);
 }
 
+.hit-on-ship {
+  background: radial-gradient(circle closest-side, red, #549060);
+  border: 1px solid #A4E3AE;
+  border-radius: 5px;
+}
+
+.miss-on-board {
+  background: radial-gradient(circle closest-side, #A4E3AE, #200f09);
+  border: 1px solid #A4E3AE;
+  border-radius: 5px;
+}
+
 .modal-header{
   display: flex;
   flex-direction: column;

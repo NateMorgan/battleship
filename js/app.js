@@ -20,13 +20,13 @@ class Coordinates {
   }
 }
 
-
 // ---------------- Constants ----------------------------//
 const gridSize = 10
 const boardSize = 40
-const shipInfo = [[`Carrier`, 5, 1],[`Battleship`, 4, 2],[`Cruiser`, 3, 3],[`Submarine`, 3, 4],[`Destroyer`,2, 5],["Confirm Placement",0,0]]
 const outlineColor = `#A4E3AE`
 const hoverColor = `#7BB886`
+
+const shipInfo = [[`Carrier`, 5, 1],[`Battleship`, 4, 2],[`Cruiser`, 3, 3],[`Submarine`, 3, 4],[`Destroyer`,2, 5],["Confirm Placement",0,0]]
 
 //----------------- Variables (State) --------------------//
 
@@ -45,77 +45,38 @@ let rotate = false
 let shipViewToggle = false
 
 // ---------------- Cached Element References ------------//
-const btnNext = document.querySelector('#btn-next')
-const btnRestart = document.querySelector(`#btn-restart`)
 const message = document.querySelector('#message')
 const gridContainer = document.querySelector('#grid-container')
 const shipContainer = document.querySelector('#ship-container')
-const rotateBtn = document.querySelector('#rotate-btn')
+
+const btnNext = document.querySelector('#btn-next')
+const btnRestart = document.querySelector(`#btn-restart`)
+const btnRotate = document.querySelector('#rotate-btn')
+const btnViewShips = document.querySelector('#ship-view')
+const btnClearShips = document.querySelector(`#ship-clear`)
+const btnUndo = document.querySelector(`#ship-undo`)
+
 const fullscreenModal = new bootstrap.Modal(document.querySelector('.modal'))
 const modalTitle = document.querySelector('.modal-title')
 const modalText = document.querySelector('#modal-text')
 const modalBtn = document.querySelector('#modal-btn')
 const modalHeader = document.querySelector('.modal-header')
-const btnViewShips = document.querySelector('#ship-view')
-const btnClearShips = document.querySelector(`#ship-clear`)
-const btnUndo = document.querySelector(`#ship-undo`)
 
 // --------------- Event Listeners -----------------------//
-btnNext.addEventListener('click', nextPhase)
-btnRestart.addEventListener('click', init)
 gridContainer.addEventListener('mouseover',boardClick)
 gridContainer.addEventListener('mouseout',boardClick)
 gridContainer.addEventListener('click',boardClick)
 shipContainer.addEventListener('click', changeShip)
-rotateBtn.addEventListener('click',rotateShips)
+
+btnNext.addEventListener('click', nextPhase)
+btnRestart.addEventListener('click', init)
+btnRotate.addEventListener('click',rotateShips)
 btnViewShips.addEventListener('click',displayShips)
 btnClearShips.addEventListener('click',clearShips)
 btnUndo.addEventListener('click',undoLastShip)
+
 //---------------- Functions -----------------------------//
 init()
-
-function render(){
-  if (game.phase === 0){
-    btnNext.hidden = false
-    btnRestart.hidden = true
-    rotateBtn.style.display = "none"
-    btnViewShips.style.display = "none"
-    btnUndo.style.display = "none"
-    gridContainer.style.display = "none"
-    shipContainer.style.display = "none"
-    message.textContent = "Start a two player game"
-  } else if (game.phase === 1){
-    btnNext.hidden = true
-    btnRestart.hidden = false
-    rotateBtn.style.display = "inline"
-    btnUndo.style.display = "inline"
-    btnClearShips.style.display = "inline"
-    message.textContent = `Player ${game.turn >0 ? 1 : 2} place your ${lastShip[0]}`
-    if (lastShip[2] === 0){
-      message.textContent= lastShip[0]
-      btnNext.textContent = 'Submit'
-      btnNext.hidden = false
-    }
-    renderBoard(gridSize,gridSize)
-  } else if (game.phase === 2){
-    btnViewShips.style.display = "block"
-    btnUndo.style.display = "none"
-    btnClearShips.style.display = "none"
-    btnNext.hidden = true
-    shipViewToggle = false
-    btnViewShips.textContent = "Show Your Ships"
-    rotateBtn.style.display = "none"
-    shipContainer.style.display = "none"
-    message.textContent = `Player ${game.turn >0 ? 1 : 2} pick a square to fire upon`
-    renderBoard(gridSize,gridSize)
-  } else if (game.phase === 3){
-    btnNext.hidden = true
-    btnViewShips.style.display = "none"
-    gridContainer.style.display = "none"
-    message.innerHTML = `Congrats Player ${game.winner >0 ? 1 : 2} on wining the game! <br> Play Again?`
-    btnRestart.textContent = `New Game`
-  }
-}
 
 function init(){
   game.phase = 0
@@ -135,6 +96,49 @@ function init(){
     }
   }
   render()
+}
+
+function render(){
+  if (game.phase === 0){
+    btnNext.hidden = false
+    btnRestart.hidden = true
+    btnRotate.style.display = "none"
+    btnViewShips.style.display = "none"
+    btnUndo.style.display = "none"
+    gridContainer.style.display = "none"
+    shipContainer.style.display = "none"
+    message.textContent = "Start a two player game"
+  } else if (game.phase === 1){
+    btnNext.hidden = true
+    btnRestart.hidden = false
+    btnRotate.style.display = "inline"
+    btnUndo.style.display = "inline"
+    btnClearShips.style.display = "inline"
+    message.textContent = `Player ${game.turn >0 ? 1 : 2} place your ${lastShip[0]}`
+    if (lastShip[2] === 0){
+      message.textContent= lastShip[0]
+      btnNext.textContent = 'Submit'
+      btnNext.hidden = false
+    }
+    renderBoard(gridSize,gridSize)
+  } else if (game.phase === 2){
+    btnViewShips.style.display = "block"
+    btnUndo.style.display = "none"
+    btnClearShips.style.display = "none"
+    btnNext.hidden = true
+    shipViewToggle = false
+    btnViewShips.textContent = "Show Your Ships"
+    btnRotate.style.display = "none"
+    shipContainer.style.display = "none"
+    message.textContent = `Player ${game.turn >0 ? 1 : 2} pick a square to fire upon`
+    renderBoard(gridSize,gridSize)
+  } else if (game.phase === 3){
+    btnNext.hidden = true
+    btnViewShips.style.display = "none"
+    gridContainer.style.display = "none"
+    message.innerHTML = `Congrats Player ${game.winner >0 ? 1 : 2} on wining the game! <br> Play Again?`
+    btnRestart.textContent = `New Game`
+  }
 }
 
 function nextPhase(){

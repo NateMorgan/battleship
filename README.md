@@ -54,7 +54,16 @@ Javascript, HTML, CSS, and Bootstrap
    3. Should have a button to restart
 
 
-
+## Resources Used
+<u>Bootstrap</u> <br> <a href="https://getbootstrap.com/">Bootstrap</a>
+<br>
+<u>Favicon</u> <br> <a target="_blank" href="https://icons8.com/icon/24072/battleship">Battleship</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+<br>
+<u>Sunk Sound Effect</u> <br> <a href="https://freesound.org/people/tommccann/sounds/235968/">Explosion_01 freesound</a>
+<br>
+<u>Fire Sound Effect</u> <br> <a href="https://freesound.org/people/CGEffex/sounds/86989/"> Shoot off_Ringy5 freesound</a>
+<br>
+<u> Hit Sound Effect </u> <br> <a href="https://freesound.org/people/thanvannispen/sounds/9565/">industrial_blast06 freesound</a>
 
 ## Next Steps
 - Add sea shanties to the background

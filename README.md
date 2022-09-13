@@ -70,9 +70,7 @@ Javascript, HTML, CSS, and Bootstrap
 
 ## Next Steps
 - Add sea shanties to the background
-- Add torpedo sounds
 - Add voice over sounds
-- Sound effects
 - Quick lock code to prevent players from playing for the other player 
 - Radar option
 - Bombs for fake hits

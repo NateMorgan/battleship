@@ -101,6 +101,7 @@ img{
 
 #grid-container {
   grid-gap: 0.1vmin;
+  /* cursor: url('../assets/img/target.png') 25 25 , crosshair;	 */
 }
 
 #ship-container{

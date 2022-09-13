@@ -86,6 +86,7 @@ function init(){
   game.winner = false
   game.fireArray = []
   rotate = false
+  gridContainer.style.cursor = "auto"
   btnNext.textContent = "Start Game"
   btnClearShips.style.display = "none"
   lastShip = shipInfo[0]
@@ -136,6 +137,7 @@ function render(){
     btnClearShips.style.display = "none"
     btnNext.hidden = true
     shipViewToggle = false
+    gridContainer.style.cursor = "url('../assets/img/target.png') 25 25 , crosshair"
     btnViewShips.textContent = "Show Your Ships"
     btnRotate.style.display = "none"
     shipContainer.style.display = "none"

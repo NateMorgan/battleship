@@ -59,6 +59,8 @@ Javascript, HTML, CSS, and Bootstrap
 <br>
 <u>Favicon</u> <br> <a target="_blank" href="https://icons8.com/icon/24072/battleship">Battleship</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 <br>
+<u>Target Cursor</u> <br> <a target="_blank" href="https://icons8.com/icon/24921/accuracy">Accuracy</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+<br>
 <u>Sunk Sound Effect</u> <br> <a href="https://freesound.org/people/tommccann/sounds/235968/">Explosion_01 freesound</a>
 <br>
 <u>Fire Sound Effect</u> <br> <a href="https://freesound.org/people/CGEffex/sounds/86989/"> Shoot off_Ringy5 freesound</a>

@@ -1,9 +1,16 @@
+@font-face {
+  font-family: NFLDOLPH;
+  src: url(../assets/fonts/NFLDOLPH.TTF);
+}
+
 *{
   background-color: #00441B;
   text-align: center;
   color: #A4E3AE;
   margin: 0;
 }
+
+
 
 body{
   display: flex;
@@ -96,4 +103,10 @@ img{
 .modal-header h1{
   margin: 50px 0 0 0;
   font-size: 200px;
+}
+
+#game-name{
+  font-family: NFLDOLPH;
+  margin: 15px 0 0 0;
+  font-size: 50px;
 }

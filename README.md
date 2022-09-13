@@ -64,6 +64,9 @@ Javascript, HTML, CSS, and Bootstrap
 <u>Fire Sound Effect</u> <br> <a href="https://freesound.org/people/CGEffex/sounds/86989/"> Shoot off_Ringy5 freesound</a>
 <br>
 <u> Hit Sound Effect </u> <br> <a href="https://freesound.org/people/thanvannispen/sounds/9565/">industrial_blast06 freesound</a>
+<br>
+<u> Battleship Font </u> <br> <a href="https://www.ffonts.net/NFL-Dolphins.font.download"> NFL Dolphins ffont</a>
+<br>
 
 ## Next Steps
 - Add sea shanties to the background

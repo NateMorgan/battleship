@@ -9,7 +9,7 @@
   color: #A4E3AE;
   margin: 0;
 }
-
+ 
 body{
   display: flex;
   flex-direction: column;
@@ -71,7 +71,7 @@ img{
 
 .modal-header h1{
   margin: 50px 0 0 0;
-  font-size: 200px;
+  font-size: 175px;
 }
 
 .modal-dialog{
@@ -85,7 +85,7 @@ img{
 }
 
 #message{
-  margin: 20px 0px;
+  margin: 0 0 15px 0;
 }
 
 #grid-container {

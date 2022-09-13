@@ -23,7 +23,7 @@ class Coordinates {
 
 // ---------------- Constants ----------------------------//
 const gridSize = 10
-const boardSize = 30
+const boardSize = 40
 const shipInfo = [[`Carrier`, 5, 1],[`Battleship`, 4, 2],[`Cruiser`, 3, 3],[`Submarine`, 3, 4],[`Destroyer`,2, 5],["Confirm Placement",0,0]]
 const outlineColor = `#A4E3AE`
 const hoverColor = `#7BB886`
@@ -57,6 +57,7 @@ const modalText = document.querySelector('#modal-text')
 const modalBtn = document.querySelector('#modal-btn')
 const modalHeader = document.querySelector('.modal-header')
 const btnViewShips = document.querySelector('#ship-view')
+const btnClearShips = document.querySelector(`#ship-clear`)
 
 // --------------- Event Listeners -----------------------//
 btnNext.addEventListener('click', nextPhase)
@@ -67,7 +68,7 @@ gridContainer.addEventListener('click',boardClick)
 shipContainer.addEventListener('click', changeShip)
 rotateBtn.addEventListener('click',rotateShips)
 btnViewShips.addEventListener('click',displayShips)
-
+btnClearShips.addEventListener('click',clearShips)
 //---------------- Functions -----------------------------//
 init()
 
@@ -84,15 +85,17 @@ function render(){
     btnNext.hidden = true
     btnRestart.hidden = false
     rotateBtn.style.display = "block"
+    btnClearShips.style.display = "block"
     message.textContent = `Player ${game.turn >0 ? 1 : 2} place your ${lastShip[0]}`
     if (lastShip[2] === 0){
       message.textContent= lastShip[0]
-      btnNext.textContent = 'Submit Boat Placement'
+      btnNext.textContent = 'Submit'
       btnNext.hidden = false
     }
     renderBoard(gridSize,gridSize)
   } else if (game.phase === 2){
     btnViewShips.style.display = "block"
+    btnClearShips.style.display = "none"
     btnNext.hidden = true
     shipViewToggle = false
     btnViewShips.textContent = "Show Your Ships"
@@ -117,7 +120,7 @@ function init(){
   game.fireArray = []
   rotate = false
   btnNext.textContent = "Start Game"
-
+  btnClearShips.style.display = "none"
   lastShip = shipInfo[0]
   gridContainer.innerHTML = ''
   for (let row = 0; row < gridSize; row++){
@@ -427,4 +430,14 @@ function checkIfSunk(shipName){
     }
   }
   return true
+}
+
+function clearShips(){
+  for (row of game.board){
+    for (el of row){
+      game.turn > 0 ? el.playerOneShip = `` : el.playerTwoShip = ``
+    }
+  }
+  lastShip = shipInfo[0]
+  render()
 }

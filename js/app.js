@@ -23,7 +23,7 @@ class Coordinates {
 // ---------------- Constants ----------------------------//
 const gridSize = 10
 const boardSize = 40
-const outlineColor = `#A4E3AE`
+const borderColor = `#A4E3AE`
 const hoverColor = `#7BB886`
 
 const shipInfo = [[`Carrier`, 5, 1],[`Battleship`, 4, 2],[`Cruiser`, 3, 3],[`Submarine`, 3, 4],[`Destroyer`,2, 5],["Confirm Placement",0,0]]
@@ -243,8 +243,8 @@ function placeShipLogic(start, action) {
     if (action === 'click'){
       game.board[r][c].placeShip(i)
     } else {
-      let newOutline = (action === 'mouseover') ? `${boardSize/gridSize/2}vh solid ${hoverColor}` : `1px solid ${outlineColor}`
-      document.getElementById(`${r}-${c}`).style.border = newOutline
+      let newBorder = (action === 'mouseover') ? `${boardSize/gridSize/2}vh solid ${hoverColor}` : `1px solid ${borderColor}`
+      document.getElementById(`${r}-${c}`).style.border = newBorder
     }
   }
   if (action === 'click'){
@@ -255,8 +255,8 @@ function placeShipLogic(start, action) {
 
 function targetSquareLogic(evt){
   if (evt.type !== 'click') {
-    let newOutline = (evt.type === 'mouseover') ? `${boardSize/gridSize/2}vh solid ${hoverColor}` : `1px solid ${outlineColor}`
-    evt.target.style.border = newOutline
+    let newBorder = (evt.type === 'mouseover') ? `${boardSize/gridSize/2}vh solid ${hoverColor}` : `1px solid ${borderColor}`
+    evt.target.style.border = newBorder
   } else {
     let r = parseInt(evt.target.id[0])
     let c = parseInt(evt.target.id[2])

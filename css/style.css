@@ -4,13 +4,11 @@
 }
 
 *{
-  background-color: #00441B;
+  background-color: #200f09;
   text-align: center;
   color: #A4E3AE;
   margin: 0;
 }
-
-
 
 body{
   display: flex;
@@ -18,7 +16,7 @@ body{
   justify-content: center;
   align-items: center;
   margin: 15px;
-  background-color: #00441B;
+  background-color: #200f09;
   text-align: center;
   color: #A4E3AE;
   margin: 0;
@@ -66,6 +64,16 @@ img{
   align-items: center;
 }
 
+.btn-light{
+  background-color: #A4E3AE;
+  border-color:black;
+}
+
+.modal-header h1{
+  margin: 50px 0 0 0;
+  font-size: 200px;
+}
+
 .modal-dialog{
   display:flex;
   flex-direction: column;
@@ -82,8 +90,6 @@ img{
 
 #grid-container {
   grid-gap: 0.1vmin;
-  /* border: 1px solid #A4E3AE; */
-  
 }
 
 #ship-container{
@@ -100,13 +106,8 @@ img{
   font-size: 50px;
 }
 
-.modal-header h1{
-  margin: 50px 0 0 0;
-  font-size: 200px;
-}
-
 #game-name{
   font-family: NFLDOLPH;
   margin: 15px 0 0 0;
-  font-size: 50px;
+  font-size: 70px;
 }

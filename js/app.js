@@ -87,7 +87,7 @@ function render(){
     message.textContent = `Player ${game.turn >0 ? 1 : 2} place your ${lastShip[0]}`
     if (lastShip[2] === 0){
       message.textContent= lastShip[0]
-      btnNext.textContent = 'Submit boat placement'
+      btnNext.textContent = 'Submit Boat Placement'
       btnNext.hidden = false
     }
     renderBoard(gridSize,gridSize)

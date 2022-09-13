@@ -58,6 +58,7 @@ const modalBtn = document.querySelector('#modal-btn')
 const modalHeader = document.querySelector('.modal-header')
 const btnViewShips = document.querySelector('#ship-view')
 const btnClearShips = document.querySelector(`#ship-clear`)
+const btnUndo = document.querySelector(`#ship-undo`)
 
 // --------------- Event Listeners -----------------------//
 btnNext.addEventListener('click', nextPhase)
@@ -69,6 +70,7 @@ shipContainer.addEventListener('click', changeShip)
 rotateBtn.addEventListener('click',rotateShips)
 btnViewShips.addEventListener('click',displayShips)
 btnClearShips.addEventListener('click',clearShips)
+btnUndo.addEventListener('click',undoLastShip)
 //---------------- Functions -----------------------------//
 init()
 
@@ -78,14 +80,16 @@ function render(){
     btnRestart.hidden = true
     rotateBtn.style.display = "none"
     btnViewShips.style.display = "none"
+    btnUndo.style.display = "none"
     gridContainer.style.display = "none"
     shipContainer.style.display = "none"
     message.textContent = "Start a two player game"
   } else if (game.phase === 1){
     btnNext.hidden = true
     btnRestart.hidden = false
-    rotateBtn.style.display = "block"
-    btnClearShips.style.display = "block"
+    rotateBtn.style.display = "inline"
+    btnUndo.style.display = "inline"
+    btnClearShips.style.display = "inline"
     message.textContent = `Player ${game.turn >0 ? 1 : 2} place your ${lastShip[0]}`
     if (lastShip[2] === 0){
       message.textContent= lastShip[0]
@@ -95,6 +99,7 @@ function render(){
     renderBoard(gridSize,gridSize)
   } else if (game.phase === 2){
     btnViewShips.style.display = "block"
+    btnUndo.style.display = "none"
     btnClearShips.style.display = "none"
     btnNext.hidden = true
     shipViewToggle = false
@@ -439,5 +444,20 @@ function clearShips(){
     }
   }
   lastShip = shipInfo[0]
+  render()
+}
+
+function undoLastShip(){
+  curIdx = shipInfo.findIndex( el => el === lastShip)
+  lastShip = curIdx > 0 ? shipInfo[curIdx-1] : shipInfo[curIdx] 
+  for (let row of game.board){
+    for (let el of row){
+      if (game.turn > 0 && el.playerOneShip.slice(0,-1) === lastShip[0]){
+        el.playerOneShip = ``
+      } else if (game.turn < 0 && el.playerTwoShip.slice(0,-1) === lastShip[0]){
+        el.playerTwoShip = ``
+      }
+    }
+  }
   render()
 }

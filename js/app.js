@@ -51,7 +51,7 @@ const shipContainer = document.querySelector('#ship-container')
 
 const btnNext = document.querySelector('#btn-next')
 const btnRestart = document.querySelector(`#btn-restart`)
-const btnRotate = document.querySelector('#rotate-btn')
+const btnRotate = document.querySelector('#ship-rotate')
 const btnViewShips = document.querySelector('#ship-view')
 const btnClearShips = document.querySelector(`#ship-clear`)
 const btnUndo = document.querySelector(`#ship-undo`)

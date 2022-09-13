@@ -48,6 +48,7 @@ let shipViewToggle = false
 const message = document.querySelector('#message')
 const gridContainer = document.querySelector('#grid-container')
 const shipContainer = document.querySelector('#ship-container')
+const shipImg = document.querySelector(`#ship`)
 
 const btnNext = document.querySelector('#btn-next')
 const btnRestart = document.querySelector(`#btn-restart`)
@@ -66,7 +67,7 @@ const modalHeader = document.querySelector('.modal-header')
 gridContainer.addEventListener('mouseover',boardClick)
 gridContainer.addEventListener('mouseout',boardClick)
 gridContainer.addEventListener('click',boardClick)
-shipContainer.addEventListener('click', changeShip)
+// shipContainer.addEventListener('click', changeShip)
 
 btnNext.addEventListener('click', nextPhase)
 btnRestart.addEventListener('click', init)
@@ -118,10 +119,14 @@ function render(){
     if (lastShip[2] === 0){
       message.textContent= lastShip[0]
       btnNext.textContent = 'Submit'
+      btnNext.style.height = '170px'
+      btnNext.style.width = '38vh'
       btnNext.hidden = false
     }
     renderBoard(gridSize,gridSize)
   } else if (game.phase === 2){
+    btnNext.style.height = "auto"
+    // btnNext.style.width = "auto"
     btnViewShips.style.display = "block"
     btnUndo.style.display = "none"
     btnClearShips.style.display = "none"
@@ -165,7 +170,9 @@ function nextPhase(){
 }
 
 function renderBoard(rows,cols){
-  shipContainer.style.display = "flex"
+  if (lastShip[1] !== 0){
+    shipContainer.style.display = "flex"
+  }
   gridContainer.innerHTML = ''
   gridContainer.hidden = false
   gridContainer.style.display = "grid"
@@ -207,24 +214,19 @@ function boardClick(evt){
   }
 }
 
-function changeShip(evt){
-  if (evt === undefined) {
-    lastShip = shipInfo[lastShip[2]]
-    if (lastShip === "Restart Placement?"){
-      return
-    }
-  } else if (evt.target.tagName === 'IMG'){
-    lastShip = shipInfo[parseInt(evt.target.id.at(-1))]
+function changeShip(){
+  // console.log(lastShip[2])
+  if (lastShip[2] === 0){
+    clearShips()
+    lastShip = shipInfo[5]
+    shipContainer.style.display = "flex"
   }
-
-  for (row of game.board){
-    for (coor of row){
-      if (game.turn > 0 && coor.playerOneShip.slice(0,-1) === lastShip[0]){
-        coor.playerOneShip = ''
-      } else if (game.turn < 0 && coor.playerTwoShip.slice(0,-1) === lastShip[0]){
-        coor.playerTwoShip = ''
-      }
-    }
+  console.log(lastShip)
+  lastShip = shipInfo[lastShip[2]]
+  if (lastShip[1] > 0){
+    shipImg.setAttribute("src", `./assets/img/${lastShip[0].toLowerCase()}.png`)
+  } else {
+    shipContainer.style.display = "none"
   }
   render()
 }

@@ -27,8 +27,7 @@ button{
 }
 
 img{
-  margin: 10px;
-  height: 15px;
+  height: 3.5vh;
 }
 
 .grid-square{
@@ -93,12 +92,11 @@ img{
 }
 
 #ship-container{
+  margin: 15px;
+  height: 175px;
   display: flex;
-  margin: 15;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 175px;
 }
 
 #sunk-text{

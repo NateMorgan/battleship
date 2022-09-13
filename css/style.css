@@ -121,3 +121,7 @@ img{
   margin: 15px 0 0 0;
   font-size: 70px;
 }
+
+#btn-next{
+  width: 38vh;
+}

@@ -116,11 +116,16 @@ function render(){
     btnUndo.style.display = "inline"
     btnClearShips.style.display = "inline"
     message.textContent = `Player ${game.turn >0 ? 1 : 2} place your ${lastShip[0]}`
+    if (lastShip[1] > 0){
+      shipImg.setAttribute("src", `./assets/img/${lastShip[0].toLowerCase()}.png`)
+    } else {
+      shipContainer.style.display = "none"
+    }
     if (lastShip[2] === 0){
       message.textContent= lastShip[0]
       btnNext.textContent = 'Submit'
       btnNext.style.height = '170px'
-      btnNext.style.width = '38vh'
+      // btnNext.style.width = '38vh'
       btnNext.hidden = false
     }
     renderBoard(gridSize,gridSize)
@@ -220,11 +225,6 @@ function changeShip(){
     shipContainer.style.display = "flex"
   }
   lastShip = shipInfo[lastShip[2]]
-  if (lastShip[1] > 0){
-    shipImg.setAttribute("src", `./assets/img/${lastShip[0].toLowerCase()}.png`)
-  } else {
-    shipContainer.style.display = "none"
-  }
   render()
 }
   

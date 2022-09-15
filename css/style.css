@@ -30,6 +30,11 @@ img{
   height: 3.5vh;
 }
 
+embed{
+  width:400px;
+  height:500px;
+}
+
 .grid-square{
   border: 1px solid #A4E3AE;
   border-radius: 5px;
@@ -45,11 +50,13 @@ img{
 }
 
 .hit{
-  background-color: red;
+  border: 12px solid red;
+  border-radius: 5px;
 }
 
 .sunk{
-  background-color: #7D0D35;
+  background-color: red;
+  border-radius: 5px;
 }
 
 .miss{
@@ -120,12 +127,12 @@ img{
   align-items: center;
 }
 
-#hit-text{
+/* #hit-text{
   color: red;
-}
+} */
 
 #sunk-text{
-  color: #7D0D35;
+  color: red;
   font-size: 50px;
 }
 
@@ -137,4 +144,11 @@ img{
 
 #btn-next{
   width: 38vh;
+}
+
+@media only screen and (min-width: 768px) {
+  embed{
+    width:700px;
+    height:700px;
+  }
 }

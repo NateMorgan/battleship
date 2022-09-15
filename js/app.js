@@ -104,6 +104,29 @@ function init(){
   render()
 }
 
+function nextPhase(){
+  if (game.phase === 0 ){
+    game.phase += 1
+  } else if (game.phase === 1){
+    if (game.turn === -1){
+      game.phase += 1
+    }
+    if (rotate){
+      rotateShips()
+    }
+      game.turn *= -1
+    lastShip = shipInfo[0]
+  } else if (game.phase === 2){
+    fireOnTarget()
+    if (checkWin()){
+      game.phase += 1
+    }
+    game.turn *= -1
+  }
+  render()
+  renderModal()
+}
+
 function render(){
   if (game.phase === 0){
     btnNext.hidden = false
@@ -153,29 +176,6 @@ function render(){
     message.innerHTML = `Congrats Player ${game.winner >0 ? 1 : 2} on wining the game! <br> Play Again?`
     btnRestart.textContent = `New Game`
   }
-}
-
-function nextPhase(){
-  if (game.phase === 0 ){
-    game.phase += 1
-  } else if (game.phase === 1){
-    if (game.turn === -1){
-      game.phase += 1
-    }
-    if (rotate){
-      rotateShips()
-    }
-      game.turn *= -1
-    lastShip = shipInfo[0]
-  } else if (game.phase === 2){
-    fireOnTarget()
-    if (checkWin()){
-      game.phase += 1
-    }
-    game.turn *= -1
-  }
-  render()
-  renderModal()
 }
 
 function renderBoard(rows,cols){
@@ -282,7 +282,11 @@ function hitOrMiss(grid,row,col){
   if (game.turn > 0){
     if (coor.playerOneFired){
       if (coor.playerTwoShip){
-        grid.setAttribute("class","hit")
+        if (checkIfSunk(coor.playerTwoShip.slice(0,coor.playerTwoShip.length-1),-1*(game.turn))){
+          grid.setAttribute("class","sunk")
+        } else {
+          grid.setAttribute("class","hit")
+        }
       } else {
         grid.setAttribute("class", "miss")
       }
@@ -290,7 +294,11 @@ function hitOrMiss(grid,row,col){
   } else {
     if (coor.playerTwoFired){
       if (coor.playerOneShip){
-        grid.setAttribute("class","hit")
+        if (checkIfSunk(coor.playerOneShip.slice(0,coor.playerOneShip.length-1),-1*(game.turn))){
+          grid.setAttribute("class","sunk")
+        } else {
+          grid.setAttribute("class","hit")
+        }
       } else {
         grid.setAttribute("class", "miss")
       }
@@ -418,10 +426,10 @@ function renderModal(){
     shipHit = shipHit.slice(0,shipHit.length-1)
     if (shipHit !== ''){
       modalHeader.firstElementChild.textContent = "HIT!"
-      if (checkIfSunk(shipHit)){
+      if (checkIfSunk(shipHit,game.turn)){
         modalHeader.lastElementChild.innerHTML = `You <span id="sunk-text">SUNK</span> my ${shipHit}`
       } else {
-        modalHeader.lastElementChild.innerHTML = `You hit my ${shipHit}`
+        modalHeader.lastElementChild.innerHTML = `You <span id="hit-text">hit</span> my ${shipHit}`
       }
     } else {
       modalHeader.firstElementChild.textContent = "MISS"
@@ -440,11 +448,11 @@ function renderModal(){
   fullscreenModal.show()
 }
 
-function checkIfSunk(shipName){
+function checkIfSunk(shipName,turn){
   for (let row of game.board){
     for (let el of row){
-      shipCheck = game.turn > 0 ? el.playerOneShip: el.playerTwoShip
-      shipFiredCheck = game.turn > 0 ? el.playerTwoFired: el.playerOneFired
+      shipCheck = turn > 0 ? el.playerOneShip: el.playerTwoShip
+      shipFiredCheck = turn > 0 ? el.playerTwoFired: el.playerOneFired
       shipCheck = shipCheck.slice(0,shipCheck.length-1)
       if (shipCheck === shipName && !shipFiredCheck){
         return false
@@ -482,3 +490,4 @@ function undoLastShip(){
 function showRules(){
   rulesModal.show()
 }
+

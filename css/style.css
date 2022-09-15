@@ -120,8 +120,12 @@ img{
   align-items: center;
 }
 
+#hit-text{
+  color: red;
+}
+
 #sunk-text{
-  color:red;
+  color: #7D0D35;
   font-size: 50px;
 }
 

@@ -9,6 +9,13 @@ This is a two player game where players place 5 battleships on their 10 x 10 gri
 
 <br>
 
+![Screenshot of Ship Placement screen](./assets/img/screenshot1.png)
+
+![Screenshot of Target screen](./assets/img/screenshot2.png)
+
+<br>
+
+
 ## How to Play
 ### Step 1: Grab a Friend!
 Click this link to play: <a href="https://play-battleship.netlify.app/">PLAY</a>

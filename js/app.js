@@ -56,6 +56,7 @@ const btnRotate = document.querySelector('#ship-rotate')
 const btnViewShips = document.querySelector('#ship-view')
 const btnClearShips = document.querySelector(`#ship-clear`)
 const btnUndo = document.querySelector(`#ship-undo`)
+const btnRules = document.querySelector(`#btn-rules`)
 
 const fullscreenModal = new bootstrap.Modal(document.querySelector('.modal'))
 const modalTitle = document.querySelector('.modal-title')
@@ -63,6 +64,7 @@ const modalText = document.querySelector('#modal-text')
 const modalBtn = document.querySelector('#modal-btn')
 const modalHeader = document.querySelector('.modal-header')
 
+const rulesModal = new bootstrap.Modal(document.querySelector('#rules-modal'))
 // --------------- Event Listeners -----------------------//
 gridContainer.addEventListener('mouseover',boardClick)
 gridContainer.addEventListener('mouseout',boardClick)
@@ -75,6 +77,8 @@ btnRotate.addEventListener('click',rotateShips)
 btnViewShips.addEventListener('click',displayShips)
 btnClearShips.addEventListener('click',clearShips)
 btnUndo.addEventListener('click',undoLastShip)
+btnRules.addEventListener(`click`,showRules)
+
 
 //---------------- Functions -----------------------------//
 init()
@@ -419,8 +423,6 @@ function renderModal(){
       } else {
         modalHeader.lastElementChild.innerHTML = `You hit my ${shipHit}`
       }
-      
-
     } else {
       modalHeader.firstElementChild.textContent = "MISS"
       modalHeader.lastElementChild.textContent = `Better Luck Next Time`
@@ -475,4 +477,8 @@ function undoLastShip(){
     }
   }
   render()
+}
+
+function showRules(){
+  rulesModal.show()
 }

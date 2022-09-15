@@ -35,9 +35,12 @@
     <button id="ship-rotate" class="btn btn-light"> Rotate </button>
     <button id="ship-clear" class="btn btn-light"> Clear </button>
   </div>
-  <button id="btn-restart" class="btn btn-light" hidden> Restart Game</button>
+  <div id="menu-btns">
+    <button id="btn-restart" class="btn btn-light" hidden> Restart Game</button>
+    <button id="btn-rules" class="btn btn-light"> Rules</button>
+  </div>
   <!-- Full screen modal -->
-  <div id="exampleModal" class="modal" tabindex="-1">
+  <div class="modal" tabindex="-1">
     <div class="modal-dialog modal-fullscreen">
       <div class="modal-header">
         <h1>  </h1>
@@ -48,6 +51,20 @@
           <h2 class="modal-title">Switch Players</h2>
           <p id="modal-text">Confirm you are Player 1 below:</p>
           <button id="modal-btn" type="button" class="btn btn-light" data-bs-dismiss="modal">I am Player 1</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Rules modal -->
+  <div id="rules-modal" class="modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-header">
+        <h2> Rules </h1>
+      </div>
+      <div class="modal-body">
+        <div class="modal-content">
+          <embed src="./assets/battleship-rules.pdf" width="400px" height="500px" />
+          <button id="modal-rules-btn" type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>

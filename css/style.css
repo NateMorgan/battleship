@@ -72,16 +72,16 @@ img{
   border-radius: 5px;
 }
 
+.btn-light{
+  background-color: #A4E3AE;
+  border-color:black;
+}
+
 .modal-header{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.btn-light{
-  background-color: #A4E3AE;
-  border-color:black;
 }
 
 .modal-header h1{
@@ -93,6 +93,10 @@ img{
   display:flex;
   flex-direction: column;
   align-items: center;
+}
+
+.modal-content{
+  background-color: #200f09;
 }
 
 #rotate-btn{

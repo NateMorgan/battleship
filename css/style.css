@@ -50,7 +50,7 @@ embed{
 }
 
 .hit{
-  border: 12px solid red;
+  border: 12px double red;
   border-radius: 5px;
 }
 
@@ -127,9 +127,13 @@ embed{
   align-items: center;
 }
 
-/* #hit-text{
+#hit-text{
   color: red;
-} */
+  font-size: 50px;
+  -webkit-text-fill-color: #200f09; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 4px;
+  -webkit-text-stroke-color: red;
+}
 
 #sunk-text{
   color: red;

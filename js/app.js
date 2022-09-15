@@ -429,7 +429,7 @@ function renderModal(){
       if (checkIfSunk(shipHit,game.turn)){
         modalHeader.lastElementChild.innerHTML = `You <span id="sunk-text">SUNK</span> my ${shipHit}`
       } else {
-        modalHeader.lastElementChild.innerHTML = `You <span id="hit-text">hit</span> my ${shipHit}`
+        modalHeader.lastElementChild.innerHTML = `You <span id="hit-text">HIT</span> my ${shipHit}`
       }
     } else {
       modalHeader.firstElementChild.textContent = "MISS"

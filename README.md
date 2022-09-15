@@ -1,11 +1,11 @@
 # BATTLESHIP
 
-Welcome Aboard Captain!  Your naval armada is primed for battle.  Are you ready to lead us to victory?
+Welcome aboard, Captain!  Your naval armada is primed for battle.  Are you ready to lead us to victory?
 
 <br>
 
 ## About the Game
-This is a two player game where players place 5 battleships on their 10 x 10 grids and then take turns guessing where the other player has placed their ships, one square at a time.  Once you find where your opponent placed all their ships, you win!
+This is a two player game where players place 5 battleships on their respective 10 x 10 grids and then take turns guessing where the other player has placed their ships, one square at a time.  Once you sink all your opponents ships, you win!
 
 <br>
 
@@ -90,6 +90,8 @@ Javascript, HTML, CSS, and Bootstrap
 <br>
 
 ## Next Steps
+- SALVO
+- Single Player
 - Add sea shanties to the background
 - Add voice over sounds
 - Quick lock code to prevent players from playing for the other player 

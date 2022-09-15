@@ -2,8 +2,12 @@
 
 Welcome Aboard Captain!  Your naval armada is primed for battle.  Are you ready to lead us to victory?
 
+<br>
+
 ## About the Game
-This is a two player game wehre players place 5 battleships on their 10 x 10 grids and then take turns guessing where the other player has placed their ships, one square at a time.  Once you find where your opponent placed their ships, you win!
+This is a two player game where players place 5 battleships on their 10 x 10 grids and then take turns guessing where the other player has placed their ships, one square at a time.  Once you find where your opponent placed all their ships, you win!
+
+<br>
 
 ## How to Play
 ### Step 1: Grab a Friend!
@@ -15,8 +19,14 @@ Take turns selecting a target square in enemy territory to fire upon.  If you fi
 ### Step 4: Endgame
 Repeat step 3 until all of a player's ships are sunk.  The last player with ships remaining wins!    
 
+### <a href="https://www.hasbro.com/common/instruct/battleship.pdf">Official Rules from Hasbro</a>
+
+<br>
+
 ## Technologies Used
 Javascript, HTML, CSS, and Bootstrap
+
+<br>
 
 ## How It's Made
 ![wireframe of the Battleship play screen](./assets/img/wire-frame.png)
@@ -41,11 +51,9 @@ Javascript, HTML, CSS, and Bootstrap
    2. Display message saying "Player [X] turn, select coordinates to fire torpedo"
    3. Allow player to click on a square that has not been targeted before
       1. Squares that have been targeted should appear as different colors
-   4. On the right side of the window, show a quick view on players ships
-      1. if they have been hit or sunk
-   5. Display a button to toggle ship view 
+   4. Display a button to toggle ship view 
       1. This is where players can see where their opponent has targeted, where the player's ships are, if they have been hit
-   6. Display a fire button to confirm targeted square
+   5. Display a fire button to confirm targeted square
       1. Should not work if a square is not targeted
       2. Would move the game to next state/screen accordingly
 4. Endgame
@@ -53,6 +61,8 @@ Javascript, HTML, CSS, and Bootstrap
    2. Should display winner of the game
    3. Should have a button to restart
 
+
+<br>
 
 ## Resources Used
 <u>Bootstrap</u> <br> <a href="https://getbootstrap.com/">Bootstrap</a>
@@ -68,6 +78,8 @@ Javascript, HTML, CSS, and Bootstrap
 <u> Hit Sound Effect </u> <br> <a href="https://freesound.org/people/thanvannispen/sounds/9565/">industrial_blast06 freesound</a>
 <br>
 <u> Battleship Font </u> <br> <a href="https://www.ffonts.net/NFL-Dolphins.font.download"> NFL Dolphins ffont</a>
+<br>
+
 <br>
 
 ## Next Steps

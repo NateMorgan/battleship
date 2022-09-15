@@ -48,6 +48,10 @@ img{
   background-color: red;
 }
 
+.sunk{
+  background-color: #7D0D35;
+}
+
 .miss{
   background-color: #A4E3AE;
 }

@@ -126,7 +126,6 @@ function render(){
       message.textContent= lastShip[0]
       btnNext.textContent = 'Submit'
       btnNext.style.height = '170px'
-      // btnNext.style.width = '38vh'
       btnNext.hidden = false
     }
     renderBoard(gridSize,gridSize)

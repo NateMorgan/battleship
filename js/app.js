@@ -437,7 +437,7 @@ function renderModal(){
     if (shipHit !== ''){
       modalHeader.firstElementChild.textContent = "HIT!"
       torpedoAudio.play()
-      setTimeout(() => sunkAudio.play(), 1000)
+      setTimeout(() => sunkAudio.play(), 750)
       
       if (checkIfSunk(shipHit,game.turn)){
         modalHeader.lastElementChild.innerHTML = `You <span id="sunk-text">SUNK</span> my ${shipHit}`

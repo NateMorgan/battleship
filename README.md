@@ -80,6 +80,8 @@ Repeat step 3 until all of a player's ships are sunk.  The last player with ship
 <br>
 <u>Target Cursor</u> <br> <a target="_blank" href="https://icons8.com/icon/24921/accuracy">Accuracy</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 <br>
+<u>Dramatic Music</u> <br> <a href="https://freesound.org/people/DaveJf/sounds/564825/">Dramatic by DaveJF freesound</a>
+<br>
 <u>Sunk Sound Effect</u> <br> <a href="https://freesound.org/people/tommccann/sounds/235968/">Explosion_01 freesound</a>
 <br>
 <u>Fire Sound Effect</u> <br> <a href="https://freesound.org/people/CGEffex/sounds/86989/"> Shoot off_Ringy5 freesound</a>

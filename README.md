@@ -31,8 +31,10 @@ Repeat step 3 until all of a player's ships are sunk.  The last player with ship
 <br>
 
 ## Technologies Used
-Javascript, HTML, CSS, and Bootstrap
-
+[![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com)
+[![Generic badge](https://img.shields.io/badge/Made%20with-CSS-red.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/Made%20-HTML-yellow.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/Made%20with-Bootstrap-blue.svg)](https://shields.io/)
 <br>
 
 ## How It's Made

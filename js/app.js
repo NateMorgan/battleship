@@ -440,7 +440,7 @@ function renderModal(){
       sunkAudio.currentTime = 0
       torpedoAudio.currentTime = 0
       torpedoAudio.play()
-      
+      sunkAudio.play()
       if (checkIfSunk(shipHit,game.turn)){
         modalHeader.lastElementChild.innerHTML = `You <span id="sunk-text">SUNK</span> my ${shipHit}`
       } else {

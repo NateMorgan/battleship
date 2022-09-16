@@ -88,6 +88,7 @@ Repeat step 3 until all of a player's ships are sunk.  The last player with ship
 <br>
 <u> Battleship Font </u> <br> <a href="https://www.ffonts.net/NFL-Dolphins.font.download"> NFL Dolphins ffont</a>
 <br>
+<u> Github Badges </u> <br> <a href="https://naereen.github.io/badges/">naereen.github.io</a>
 
 <br>
 

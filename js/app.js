@@ -93,6 +93,7 @@ function init(){
   dramaticAudio.loop = true
   sunkAudio.volume = .1
   torpedoAudio.volume = .2
+  
   game.phase = 0
   game.turn = 1
   game.board = []
@@ -436,8 +437,10 @@ function renderModal(){
     shipHit = shipHit.slice(0,shipHit.length-1)
     if (shipHit !== ''){
       modalHeader.firstElementChild.textContent = "HIT!"
+      sunkAudio.currentTime = 0
+      torpedoAudio.currentTime = 0
       torpedoAudio.play()
-      setTimeout(() => sunkAudio.play(), 750)
+      sunkAudio.play()
       
       if (checkIfSunk(shipHit,game.turn)){
         modalHeader.lastElementChild.innerHTML = `You <span id="sunk-text">SUNK</span> my ${shipHit}`
@@ -445,6 +448,7 @@ function renderModal(){
         modalHeader.lastElementChild.innerHTML = `You <span id="hit-text">HIT</span> my ${shipHit}`
       }
     } else {
+      torpedoAudio.currentTime = 0
       torpedoAudio.play()
       modalHeader.firstElementChild.textContent = "MISS"
       modalHeader.lastElementChild.textContent = `Better Luck Next Time`

@@ -65,6 +65,10 @@ const modalBtn = document.querySelector('#modal-btn')
 const modalHeader = document.querySelector('.modal-header')
 
 const rulesModal = new bootstrap.Modal(document.querySelector('#rules-modal'))
+
+const dramaticAudio = new Audio("./assets/audio/dramatic.mp3")
+const sunkAudio = new Audio("./assets/audio/sunk.wav")
+
 // --------------- Event Listeners -----------------------//
 gridContainer.addEventListener('mouseover',boardClick)
 gridContainer.addEventListener('mouseout',boardClick)
@@ -84,6 +88,8 @@ btnRules.addEventListener(`click`,showRules)
 init()
 
 function init(){
+  dramaticAudio.volume = .05
+  dramaticAudio.loop = true
   game.phase = 0
   game.turn = 1
   game.board = []
@@ -138,6 +144,7 @@ function render(){
     shipContainer.style.display = "none"
     message.textContent = "Start a two player game"
   } else if (game.phase === 1){
+    dramaticAudio.play()
     btnNext.hidden = true
     btnRestart.hidden = false
     btnRotate.style.display = "inline"

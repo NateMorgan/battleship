@@ -68,6 +68,7 @@ const rulesModal = new bootstrap.Modal(document.querySelector('#rules-modal'))
 
 const dramaticAudio = new Audio("./assets/audio/dramatic.mp3")
 const sunkAudio = new Audio("./assets/audio/sunk.wav")
+const torpedoAudio = new Audio("./assets/audio/torpedo.wav")
 
 // --------------- Event Listeners -----------------------//
 gridContainer.addEventListener('mouseover',boardClick)
@@ -90,6 +91,8 @@ init()
 function init(){
   dramaticAudio.volume = .05
   dramaticAudio.loop = true
+  sunkAudio.volume = .1
+  torpedoAudio.volume = .2
   game.phase = 0
   game.turn = 1
   game.board = []
@@ -433,12 +436,16 @@ function renderModal(){
     shipHit = shipHit.slice(0,shipHit.length-1)
     if (shipHit !== ''){
       modalHeader.firstElementChild.textContent = "HIT!"
+      torpedoAudio.play()
+      setTimeout(() => sunkAudio.play(), 1000)
+      
       if (checkIfSunk(shipHit,game.turn)){
         modalHeader.lastElementChild.innerHTML = `You <span id="sunk-text">SUNK</span> my ${shipHit}`
       } else {
         modalHeader.lastElementChild.innerHTML = `You <span id="hit-text">HIT</span> my ${shipHit}`
       }
     } else {
+      torpedoAudio.play()
       modalHeader.firstElementChild.textContent = "MISS"
       modalHeader.lastElementChild.textContent = `Better Luck Next Time`
     }

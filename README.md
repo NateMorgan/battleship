@@ -41,7 +41,7 @@ Repeat step 3 until all of a player's ships are sunk.  The last player with ship
 
 ## How It's Made
 ### Code Snippet
-```
+```javascript
 // Constants
 const gridSize = 25
 const boardSize = 20

@@ -1,6 +1,8 @@
-# BATTLESHIP
+# <a href= "https://play-battleship.netlify.app/">BATTLESHIP</a>
 
 Welcome aboard, Captain!  Your naval armada is primed for battle.  Are you ready to lead us to victory?
+
+Click here to play: <a href= "https://play-battleship.netlify.app/">BATTLESHIP</a>
 
 <br>
 
@@ -38,6 +40,35 @@ Repeat step 3 until all of a player's ships are sunk.  The last player with ship
 <br>
 
 ## How It's Made
+### Code Snippet
+```
+// Constants
+const gridSize = 25
+const boardSize = 20
+
+// Cached Element References
+const gridContainer = document.querySelector('#grid-container')
+
+// Functions
+renderGrid(gridSize,gridSize)
+
+function renderGrid(rows,cols){
+  gridContainer.style.display = "grid"
+  gridContainer.style.gridTemplateRows = `repeat(${rows}, ${boardSize/rows}vh)`
+  gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${boardSize/cols}vh)`
+  for (let row = 0; row < rows; row++){
+    for (let col = 0; col < cols; col++){
+      let newGridSquare = document.createElement('div')
+      newGridSquare.setAttribute("class","grid-square")
+      newGridSquare.setAttribute("id",`${row}-${col}`)
+      gridContainer.appendChild(newGridSquare)
+    }
+  }
+}
+```
+I am extremely proud of code above because it allows a programmer to easily and quickly adjust the size of the grid and how many rows and columns for the grid to have by just changing two saved constants. 
+
+### Wireframe
 ![wireframe of the Battleship play screen](./assets/img/wire-frame.png)
 ### Pseudo-code
 1. Create a start screen with the title of game and a button to start a new game
@@ -99,8 +130,9 @@ Repeat step 3 until all of a player's ships are sunk.  The last player with ship
 - Single Player
 - Add sea shanties to the background
 - Add voice over sounds
+- Add volume control
 - Quick lock code to prevent players from playing for the other player 
 - Radar option
 - Bombs for fake hits
-- airstrikes
+- Airstrikes
 - Big bombs
